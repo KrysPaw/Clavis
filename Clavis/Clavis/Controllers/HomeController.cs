@@ -1,4 +1,5 @@
 ﻿using Clavis.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +12,14 @@ namespace Clavis.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager)
         {
-            _logger = logger;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -29,8 +33,38 @@ namespace Clavis.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Login(string username, string password)
+        public IActionResult Login()
+        {          
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string username, string password)
         {
+
+            //login functionality
+            var user = _userManager.FindByNameAsync(username);
+
+            if(user != null)
+            {
+                var signInResult = await _signInManager.PasswordSignInAsync(username, password, false, false);
+
+                if (signInResult.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Register(string username, string password)
+        {
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
         }
     }

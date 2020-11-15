@@ -1,8 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+@{
+    //ViewData["Title"] = "Home Page";
+}   
+<div style="background-color: #4a4e69;" class="container box-shadow d-sm-flex align-items-center justify-content-center ">
+    <div class="text-center" id="login-tab" >
+        <h1 class="d-flex">Logowanie</h1>
+        <form action="/Home/Login" method="post" id="loginform">
+            <input class ="d-block" type="text" name="username" value="" />
+            <input class ="d-block" type="text" name="password" value="" />
+            <button class ="d-block" type="submit">Zaloguj</button>
+        </form>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
 </div>
+
