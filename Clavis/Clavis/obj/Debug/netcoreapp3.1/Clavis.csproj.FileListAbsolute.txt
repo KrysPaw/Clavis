@@ -57,3 +57,4 @@ C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavi
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.dll
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.pdb
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.genruntimeconfig.cache
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\RoomList.cshtml.g.cs

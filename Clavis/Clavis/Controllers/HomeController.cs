@@ -38,6 +38,7 @@ namespace Clavis.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
@@ -66,6 +67,12 @@ namespace Clavis.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
+        }
+
+
+        public IActionResult RoomList()
+        {
+            return View();
         }
     }
 }
