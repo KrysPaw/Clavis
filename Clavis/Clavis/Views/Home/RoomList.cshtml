@@ -19,7 +19,24 @@
     <div class="col-lg-8 room-list-box">
         <div class="box-title">
             <h2 class="text-center">Lista sal</h2>
-            Lorem ipsum
+            <center>
+                <table border="1">
+                    <tr>
+                        <th>Id</th>
+                        <th>Numer</th>
+                        <th>Opis</th>
+                    </tr>
+                    @foreach(var item in Model.getRooms)
+                    {
+                        <tr>
+                            <td>@item.rooms_id</td>
+                            <td>@item.numer</td>
+                            <td>@item.opis</td>
+                            <td>@item.miejsca</td>
+                        </tr>
+                    }
+                </table>
+            </center>
         </div>   
     </div>
 </div>
