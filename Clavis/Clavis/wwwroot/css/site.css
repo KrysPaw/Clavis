@@ -149,6 +149,7 @@ body {
     -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    max-height : 350px;
 }
 
 .room-list-box {
@@ -177,13 +178,41 @@ body {
     -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
-    width : 200px;
+    width : auto;
 }
 
 .filter-options label 
 {
     margin-right: 10px;
     color: #e5e5e5;
+}
+
+.amount-filter 
+{
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    width: 100px;
+}
+
+.sort 
+{
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    width: auto;
 }
 
 .box-title h2
@@ -194,4 +223,82 @@ body {
     color: #e5e5e5;
 }
 
+.room-list-item 
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
 
+.room-list :hover {
+    background-color: #e1e2e2;
+    transition: linear all 0.5s;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+}
+
+.room-list-item h5 {
+    pointer-events: none;
+    color: #424949
+}
+
+.room-list-item h3 {
+    color: #222;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.room-list-item h4 {
+    color: #DC143C;
+    font-style : italic;
+    pointer-events: none;
+}
+
+.submit-button
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.page-button 
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    width: 120px;
+    text-align: center;
+}

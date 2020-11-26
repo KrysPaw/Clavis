@@ -1,7 +1,10 @@
-﻿using Clavis.Models;
+﻿using Clavis.Data;
+using Clavis.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,12 +17,14 @@ namespace Clavis.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+       
+        private DbData data;
 
         public HomeController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,IConfiguration config)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            data = new DbData(config);
         }
 
         public IActionResult Index()
@@ -71,8 +76,23 @@ namespace Clavis.Controllers
 
 
         public IActionResult RoomList()
-        {
-            return View();
+        {           
+            return View(data.getRooms("",0,"none"));//todo
         }
+        [HttpPost]
+        public IActionResult RoomList(string numer,bool access,int amount,string sort,int? page)
+        {
+            if (numer == null)
+                numer = "";
+            int pageSize = 3;
+            var result = data.getRooms(numer, amount, sort);
+            var pageResult = result.ToPagedList(page ?? 1, pageSize);
+            ViewBag.maxPages = Math.Ceiling((decimal)result.Count/pageSize);
+            ViewBag.numer = numer;
+            ViewBag.access = access;
+            ViewBag.miejsca = amount;            
+            return View(pageResult);            
+        }
+
     }
 }

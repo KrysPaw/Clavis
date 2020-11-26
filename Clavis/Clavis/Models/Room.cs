@@ -13,5 +13,6 @@ namespace Clavis.Models
         public string numer { get; set; }
         public string opis { get; set; }
         public int miejsca { get; set; }
+        public string uwagi { get; set; }
     }
 }

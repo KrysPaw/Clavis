@@ -44,7 +44,6 @@ C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavi
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.RazorCoreGenerate.cache
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
-C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -83,3 +82,12 @@ C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runti
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\Microsoft.SqlServer.Types.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\PagedList.dll
+C:\Users\wk98\source\repos\ClavisRep\Clavis\Clavis\bin\Debug\netcoreapp3.1\PagedList.Mvc.dll
