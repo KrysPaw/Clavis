@@ -90,8 +90,9 @@ namespace Clavis.Controllers
             ViewBag.maxPages = Math.Ceiling((decimal)result.Count/pageSize);
             ViewBag.numer = numer;
             ViewBag.access = access;
+            ViewBag.sp = 0;
             ViewBag.miejsca = amount;            
-            return View(pageResult);            
+            return View(result);            
         }
 
     }

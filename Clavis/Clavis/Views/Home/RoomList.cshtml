@@ -19,13 +19,13 @@
                     <input class="amount-filter" type="number" name="amount" min="0" value="@ViewBag.miejsca" max="999" />
                 </div>
                 <div class="d-block filter-options">
-                    <label>Sortowanie : </label>
+                    <label>Sortowanie : </label>                        
                     <select class="sort" name="sort">
-                        <option value="none">--</option>
-                        <option value="numUp">Numer: rosnąco</option>
-                        <option value="numDown">Numer: malejąco</option>
-                        <option value="mieUp">Miejsca: rosnąco</option>
-                        <option value="mieDown">Miejsca: malejąco</option>
+                        <option value="none" id="none">--</option>
+                        <option value="numUp" id="numUp">Numer: rosnąco</option>
+                        <option value="numDown" id="numDown">Numer: malejąco</option>
+                        <option value="mieUp" id="mieUp">Miejsca: rosnąco</option>
+                        <option value="mieDown" id="mieDown">Miejsca: malejąco</option>
                     </select>
                 </div>
                 <center>
@@ -39,7 +39,7 @@
     <div class="col-lg-6 room-list-box m-3">
         <div class="box-title">
             <h2 class="text-center">Lista sal</h2>
-            <center>
+            <!--<center>
                 <div class="row">
                     <div class="">
                         <button type="button" class="page-button">Poprzednia</button>
@@ -48,10 +48,11 @@
                         Strona 1/@ViewBag.maxPages
                     </div>
                     <div class="">
-                        <button type="button" class="page-button" action="@ViewBag.page+=1">Następna</button>
+                        <button type="button" class="page-button">Następna</button>
                     </div>
                 </div>               
-            </center>                               
+            </center>  
+                -->
             <div class="container room-list">
                 @{
                     if (Model != null)
