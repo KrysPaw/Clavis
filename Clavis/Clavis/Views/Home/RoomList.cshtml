@@ -1,0 +1,83 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+<div class="row">
+    <div class="col-lg-4 filter-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Opcje</h2>
+            <form method="post">
+                <div class="d-block filter-options">
+                    <label class="d-inline-block">Numer : </label>
+                    <input class="numer-filter" type="text" name="numer" value="@ViewBag.numer" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Tylko dostępne : </label>
+                    <input class="access-filter" type="checkbox" name="access" checked="@ViewBag.access"/>
+                </div>
+                <div class="d-block filter-options">
+                    <label>Ilość miejsc : </label>
+                    <input class="amount-filter" type="number" name="amount" min="0" value="@ViewBag.miejsca" max="999" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Sortowanie : </label>                        
+                    <select class="sort" name="sort">
+                        <option value="none" id="none">--</option>
+                        <option value="numUp" id="numUp">Numer: rosnąco</option>
+                        <option value="numDown" id="numDown">Numer: malejąco</option>
+                        <option value="mieUp" id="mieUp">Miejsca: rosnąco</option>
+                        <option value="mieDown" id="mieDown">Miejsca: malejąco</option>
+                    </select>
+                </div>
+                <center>
+                    <div class="d-block filter-options">
+                        <button class="submit-button" type="submit" name="submit_button">Szukaj</button>
+                    </div>
+                </center>
+            </form>                        
+        </div>              
+    </div>
+    <div class="col-lg-6 room-list-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Lista sal</h2>
+            <!--<center>
+                <div class="row">
+                    <div class="">
+                        <button type="button" class="page-button">Poprzednia</button>
+                    </div>
+                    <div class="text-center page-info">
+                        Strona 1/@ViewBag.maxPages
+                    </div>
+                    <div class="">
+                        <button type="button" class="page-button">Następna</button>
+                    </div>
+                </div>               
+            </center>  
+                -->
+            <div class="container room-list">
+                @{
+                    if (Model != null)
+                        foreach (var item in Model)
+                        {
+                                <div class="col-12 room-list-item">
+                                    <h3>@item.numer</h3>
+                                    <h5>@item.opis</h5>
+                                    <h4>@item.uwagi</h4>
+                                    <h5>Miejsca : @item.miejsca</h5>
+                                </div>
+                            }
+                        else
+                        {
+                            <div class="col-12 text-center">
+                                <h3>Nie znaleziono sal</h3>
+                            </div>
+                        }
+                }
+            </div>
+        </div>   
+    </div>
+</div>
+
+
+
+
+<!--container box-shadow d-sm-flex align-items-center justify-content-center -->

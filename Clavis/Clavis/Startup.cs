@@ -26,21 +26,25 @@ namespace Clavis
         public void ConfigureServices(IServiceCollection services)
         {          
             services.AddControllersWithViews();
-            services.AddDbContext<AppDbContext>(config =>
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+            /*
             {
                 config.UseInMemoryDatabase("data");
             });
-
+            */
             // AddIdentity registers the services
+            
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-
+            
+            
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Identity.Cookie";
                 config.LoginPath = "/Home/Login";
             });
+            
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
