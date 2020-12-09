@@ -1,7 +1,7 @@
-﻿using Clavis.Data;
-using Clavis.Models;
+﻿using Clavis.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PagedList;
@@ -17,14 +17,12 @@ namespace Clavis.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-       
-        private DbData data;
 
-        public HomeController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,IConfiguration config)
+        private readonly ClavisDbContext _db;
+
+        public HomeController(ClavisDbContext db)                
         {
-            _userManager = userManager;
-            data = new DbData(config);
+            _db = db;
         }
 
         public IActionResult Index()
@@ -75,24 +73,47 @@ namespace Clavis.Controllers
         }
 
 
-        public IActionResult RoomList()
-        {           
-            return View(data.getRooms("",0,"none"));//todo
+        public IActionResult RoomList(int page = 1,int pageSize = 3)
+        {
+            PagedList<Room> pagedResult = new PagedList<Room>(_db.Rooms, page, pageSize);
+            return View("RoomList",pagedResult);
+
         }
         [HttpPost]
-        public IActionResult RoomList(string numer,bool access,int amount,string sort,int? page)
+        public IActionResult RoomList(string numer,bool access,int amount,string sort,int page = 1, int pageSize = 3)
         {
+            
             if (numer == null)
                 numer = "";
-            int pageSize = 3;
-            var result = data.getRooms(numer, amount, sort);
-            var pageResult = result.ToPagedList(page ?? 1, pageSize);
-            ViewBag.maxPages = Math.Ceiling((decimal)result.Count/pageSize);
+            IQueryable<Room> result;
+            switch (sort)
+            {
+                case "numUp":
+                    result = _db.Rooms.Where(Room => EF.Functions.Like(Room.Numer, "%" + numer + "%") && Room.Miejsca >= amount).OrderBy(Room => Room.Numer);
+                    break;
+                case "numDown":
+                    result = _db.Rooms.Where(Room => EF.Functions.Like(Room.Numer, "%" + numer + "%") && Room.Miejsca >= amount).OrderByDescending(Room => Room.Numer);
+                    break;
+                case "mieUp":
+                    result = _db.Rooms.Where(Room => EF.Functions.Like(Room.Numer, "%" + numer + "%") && Room.Miejsca >= amount).OrderBy(Room => Room.Miejsca);
+                    break;
+                case "mieDown":
+                    result = _db.Rooms.Where(Room => EF.Functions.Like(Room.Numer, "%" + numer + "%") && Room.Miejsca >= amount).OrderByDescending(Room => Room.Miejsca);
+                    break;
+                default:
+                    result = _db.Rooms.Where(Room => EF.Functions.Like(Room.Numer, "%" + numer + "%") && Room.Miejsca >= amount);
+                    break;
+            }
+            List<Room> listResult = result.ToList();
+            PagedList<Room> pagedResult = new PagedList<Room>(listResult, page, pageSize);
+            ViewBag.page = page;
+            ViewBag.maxPages = Math.Ceiling((decimal)listResult.Count/pageSize);
             ViewBag.numer = numer;
             ViewBag.access = access;
             ViewBag.sp = 0;
-            ViewBag.miejsca = amount;            
-            return View(result);            
+            ViewBag.miejsca = amount;    
+            
+            return View("RoomList",pagedResult);            
         }
 
     }

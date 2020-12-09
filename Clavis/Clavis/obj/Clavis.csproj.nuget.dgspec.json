@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wk98\\source\\repos\\ClavisRep\\Clavis\\Clavis\\Clavis.csproj": {}
+    "C:\\Users\\wk98\\source\\repos\\ClavisN2\\Clavis\\Clavis\\Clavis.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wk98\\source\\repos\\ClavisRep\\Clavis\\Clavis\\Clavis.csproj": {
+    "C:\\Users\\wk98\\source\\repos\\ClavisN2\\Clavis\\Clavis\\Clavis.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wk98\\source\\repos\\ClavisRep\\Clavis\\Clavis\\Clavis.csproj",
+        "projectUniqueName": "C:\\Users\\wk98\\source\\repos\\ClavisN2\\Clavis\\Clavis\\Clavis.csproj",
         "projectName": "Clavis",
-        "projectPath": "C:\\Users\\wk98\\source\\repos\\ClavisRep\\Clavis\\Clavis\\Clavis.csproj",
+        "projectPath": "C:\\Users\\wk98\\source\\repos\\ClavisN2\\Clavis\\Clavis\\Clavis.csproj",
         "packagesPath": "C:\\Users\\wk98\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wk98\\source\\repos\\ClavisRep\\Clavis\\Clavis\\obj\\",
+        "outputPath": "C:\\Users\\wk98\\source\\repos\\ClavisN2\\Clavis\\Clavis\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\wk98\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -48,11 +48,23 @@
               "target": "Package",
               "version": "[5.0.0, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[5.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.0, )"
             },
@@ -63,6 +75,10 @@
             "PagedList": {
               "target": "Package",
               "version": "[1.17.0, )"
+            },
+            "PagedList.Core.Mvc": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "PagedList.Mvc": {
               "target": "Package",

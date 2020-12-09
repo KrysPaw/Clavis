@@ -1,6 +1,9 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
 
+
+@model PagedList<Clavis.Models.Room>
+
 <div class="row">
     <div class="col-lg-4 filter-box m-3">
         <div class="box-title">
@@ -38,8 +41,8 @@
     </div>
     <div class="col-lg-6 room-list-box m-3">
         <div class="box-title">
-            <h2 class="text-center">Lista sal</h2>
-            <!--<center>
+            <h2 class="text-center">Lista sal</h2>            
+
                 <div class="row">
                     <div class="">
                         <button type="button" class="page-button">Poprzednia</button>
@@ -51,18 +54,17 @@
                         <button type="button" class="page-button">Następna</button>
                     </div>
                 </div>               
-            </center>  
-                -->
+                
             <div class="container room-list">
                 @{
                     if (Model != null)
                         foreach (var item in Model)
                         {
                                 <div class="col-12 room-list-item">
-                                    <h3>@item.numer</h3>
-                                    <h5>@item.opis</h5>
-                                    <h4>@item.uwagi</h4>
-                                    <h5>Miejsca : @item.miejsca</h5>
+                                    <h3>@item.Numer</h3>
+                                    <h5>@item.Opis</h5>
+                                    <h4>@item.Uwagi</h4>
+                                    <h5>Miejsca : @item.Miejsca</h5>
                                 </div>
                             }
                         else

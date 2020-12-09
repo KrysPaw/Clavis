@@ -26,10 +26,13 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.0",
+          "Microsoft.EntityFrameworkCore.Design": "5.0.0",
           "Microsoft.EntityFrameworkCore.InMemory": "5.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0",
+          "Microsoft.EntityFrameworkCore.Tools": "5.0.0",
           "Microsoft.SqlServer.Types": "14.0.1016.290",
           "PagedList": "1.17.0",
+          "PagedList.Core.Mvc": "3.0.0",
           "PagedList.Mvc": "4.5.0",
           "System.Data.SqlClient": "4.8.2",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
@@ -306,6 +309,14 @@
           "Clavis.dll": {}
         }
       },
+      "Humanizer.Core/2.8.26": {
+        "runtime": {
+          "lib/netstandard2.0/Humanizer.dll": {
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.26.1919"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -346,7 +357,7 @@
           "lib/netstandard2.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.SqlClient/2.0.1": {
         "dependencies": {
           "Microsoft.Data.SqlClient.SNI.runtime": "2.0.1",
@@ -461,6 +472,19 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/5.0.0": {},
+      "Microsoft.EntityFrameworkCore.Design/5.0.0": {
+        "dependencies": {
+          "Humanizer.Core": "2.8.26",
+          "Microsoft.CSharp": "4.7.0",
+          "Microsoft.EntityFrameworkCore.Relational": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.52303"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.InMemory/5.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "5.0.0"
@@ -503,6 +527,11 @@
         },
         "compile": {
           "lib/netstandard2.1/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/5.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "5.0.0"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/5.0.0": {
@@ -666,7 +695,7 @@
       },
       "Microsoft.Identity.Client/4.14.0": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Private.Uri": "4.3.2",
@@ -782,7 +811,7 @@
       },
       "Newtonsoft.Json/10.0.1": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "System.Collections": "4.3.0",
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
@@ -828,6 +857,31 @@
         },
         "compile": {
           "lib/net40/PagedList.dll": {}
+        }
+      },
+      "PagedList.Core/1.17.4": {
+        "runtime": {
+          "lib/netcoreapp1.0/PagedList.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp1.0/PagedList.Core.dll": {}
+        }
+      },
+      "PagedList.Core.Mvc/3.0.0": {
+        "dependencies": {
+          "PagedList.Core": "1.17.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/PagedList.Core.Mvc.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.0/PagedList.Core.Mvc.dll": {}
         }
       },
       "PagedList.Mvc/4.5.0": {
@@ -3155,6 +3209,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Humanizer.Core/2.8.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
+      "path": "humanizer.core/2.8.26",
+      "hashPath": "humanizer.core.2.8.26.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Cryptography.Internal/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3176,12 +3237,12 @@
       "path": "microsoft.aspnetcore.identity.entityframeworkcore/5.0.0",
       "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.5.0.0.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Microsoft.CSharp/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/2.0.1": {
       "type": "package",
@@ -3218,6 +3279,13 @@
       "path": "microsoft.entityframeworkcore.analyzers/5.0.0",
       "hashPath": "microsoft.entityframeworkcore.analyzers.5.0.0.nupkg.sha512"
     },
+    "Microsoft.EntityFrameworkCore.Design/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kyd66aJDTZjpo4awTpJb6BOVGnhS/pZgD3O2JH1A9QhtE+0kqEVXJLpNN9CPfbKWERipXAEUyUadPHNclZCc3g==",
+      "path": "microsoft.entityframeworkcore.design/5.0.0",
+      "hashPath": "microsoft.entityframeworkcore.design.5.0.0.nupkg.sha512"
+    },
     "Microsoft.EntityFrameworkCore.InMemory/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3238,6 +3306,13 @@
       "sha512": "sha512-ChtvV0o7F1LsD1ek6pgADRJOzswf2YiPlqlEo0SZOfTp3daHgibp4JC9XXI/oXnQoUuRPuqMGtvgxuDXpr2xwQ==",
       "path": "microsoft.entityframeworkcore.sqlserver/5.0.0",
       "hashPath": "microsoft.entityframeworkcore.sqlserver.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HSV7DLFMImkOuhnExianO/Csn1O/6s7h1kQxPFDa6zgfCQI09fyh7zzJoJ3KQiMUnajBBfYkEE9GtK7FoyeHOA==",
+      "path": "microsoft.entityframeworkcore.tools/5.0.0",
+      "hashPath": "microsoft.entityframeworkcore.tools.5.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/5.0.0": {
       "type": "package",
@@ -3406,6 +3481,20 @@
       "sha512": "sha512-Ou6F3WKXh49hOo0TxWM+SkIGuKllYPuPPvnSYOlQ1sTrtuEyuDUhYbSJd5Sdb06i/sWUJZTjiUecEs3Ht/Hx3g==",
       "path": "pagedlist/1.17.0",
       "hashPath": "pagedlist.1.17.0.nupkg.sha512"
+    },
+    "PagedList.Core/1.17.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Me111vdmlPp4GGeHqvNlnv4Raq1f1F77fDsJebuKsHCZXG4v4kMDzd5h1YVDv/Q7q9DuVgueR9mxp7eO7Yj4LA==",
+      "path": "pagedlist.core/1.17.4",
+      "hashPath": "pagedlist.core.1.17.4.nupkg.sha512"
+    },
+    "PagedList.Core.Mvc/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cfMopTUyfyDcZ/HL58w9DWmlb6M9yYYaJ0i3c1j8bGeZCHRyfX3Y5rDnPa1olFdqJmh8sRIx2aKMczGe++E9sA==",
+      "path": "pagedlist.core.mvc/3.0.0",
+      "hashPath": "pagedlist.core.mvc.3.0.0.nupkg.sha512"
     },
     "PagedList.Mvc/4.5.0": {
       "type": "package",

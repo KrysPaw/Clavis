@@ -1,8 +1,9 @@
-using Clavis.Data;
+using Clavis.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,9 @@ namespace Clavis
         public void ConfigureServices(IServiceCollection services)
         {          
             services.AddControllersWithViews();
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+            services.AddDbContext<ClavisDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddMvc();
             /*
             {
                 config.UseInMemoryDatabase("data");
@@ -34,9 +37,9 @@ namespace Clavis
             */
             // AddIdentity registers the services
             
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<AppDbContext>()
+            //    .AddDefaultTokenProviders();
             
             
             services.ConfigureApplicationCookie(config =>

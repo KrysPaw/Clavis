@@ -1,18 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+#nullable disable
 
 namespace Clavis.Models
 {
-    public class Room
+    [Table("rooms")]
+    public partial class Room
     {
+        public Room()
+        {
+            Rezerwacjes = new HashSet<Rezerwacje>();
+            Uprawnienia = new HashSet<Uprawnienium>();
+        }
+
         [Key]
-        public int rooms_id { get; set; }
-        public string numer { get; set; }
-        public string opis { get; set; }
-        public int miejsca { get; set; }
-        public string uwagi { get; set; }
+        [Column("rooms_id")]
+        public int RoomsId { get; set; }
+        [Column("numer")]
+        [StringLength(10)]
+        public string Numer { get; set; }
+        [Column("opis")]
+        [StringLength(200)]
+        public string Opis { get; set; }
+        [Column("miejsca")]
+        public int? Miejsca { get; set; }
+        [Column("uwagi")]
+        [StringLength(200)]
+        public string Uwagi { get; set; }
+
+        [InverseProperty(nameof(Rezerwacje.Rooms))]
+        public virtual ICollection<Rezerwacje> Rezerwacjes { get; set; }
+        [InverseProperty(nameof(Uprawnienium.Rooms))]
+        public virtual ICollection<Uprawnienium> Uprawnienia { get; set; }
     }
 }
