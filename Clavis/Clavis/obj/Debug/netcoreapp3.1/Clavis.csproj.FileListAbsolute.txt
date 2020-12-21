@@ -175,7 +175,6 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.RazorCoreGenerate.cache
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
-C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Home\RoomList.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -189,3 +188,4 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\PagedList.Core.dll
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\PagedList.Core.Mvc.dll
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs

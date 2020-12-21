@@ -299,6 +299,24 @@ body {
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
     box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
-    width: 120px;
+    width: 100px;
+}
+
+.page-info 
+{
+    color: #eee;
+    padding-top: 20px;
+    text-align : center;
+}
+
+.page-info h5 
+{
+    color: #eee;
     text-align: center;
+}
+
+.paging-panel
+{
+    margin-left: auto;
+    margin-right: auto;
 }

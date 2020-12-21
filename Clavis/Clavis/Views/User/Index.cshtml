@@ -1,0 +1,87 @@
+﻿@model Clavis.Paging.PaginatedList<Clavis.Models.Room>
+
+<div class="row">
+    <div class="col-lg-4 filter-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Opcje</h2>
+            <form asp-action="Index" method="get">
+                <div class="d-block filter-options">
+                    <label class="d-inline-block">Numer : </label>
+                    <input class="numer-filter" type="text" name="numer" value="@ViewData["searchNumer"]" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Tylko dostępne : </label>
+                    <input class="access-filter" type="checkbox" name="access" checked="@ViewBag.access"/>
+                </div>
+                <div class="d-block filter-options">
+                    <label>Ilość miejsc : </label>
+                    <input class="amount-filter" type="number" name="amount" min="0" value="@ViewData["searchMiejsca"]" max="999" />
+                </div>
+
+                <div class="d-block filter-options">
+                    <label>Sortowanie : </label>                        
+                    <select class="sort" name="sortOrder">
+                        <option value="none" id="none">--</option>
+                        <option value="numer" id="numUp">Numer: rosnąco</option>
+                        <option value="numerDesc" id="numDown">Numer: malejąco</option>
+                        <option value="miejsce" id="mieUp">Miejsca: rosnąco</option>
+                        <option value="miejsceDesc" id="mieDown">Miejsca: malejąco</option>
+                    </select>
+                </div>
+                <center>
+                    <div class="d-block filter-options">
+                        <button asp-action="Index" class="submit-button" type="submit" name="submit_button">Szukaj</button>
+                    </div>
+                </center>
+            </form>                        
+        </div>              
+    </div>
+    <div class="col-lg-6 room-list-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Lista sal</h2>
+            
+            @{ 
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+          
+            <div class="row text-center">
+                <div class="col-3">
+                    <a asp-action="Index" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-amount="@ViewData["searchMiejsca"]" asp-route-numer="@ViewData["searchNumer"]" asp-route-pageNumber="@(Model.PageIndex-1)" type="submit" class="btn btn-default page-button @prevDisabled">Poprzednia</a>
+                </div>
+                <div class="col-6 page-info">
+                    <h5>Strona @ViewBag.pageIndex / @ViewBag.totalPages</h5>
+                </div>
+                <div class="col-3">
+                    <a asp-action="Index" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-amount="@ViewData["searchMiejsca"]" asp-route-numer="@ViewData["searchNumer"]" asp-route-pageNumber="@(Model.PageIndex+1)" type="submit" class="btn btn-default page-button @nextDisabled">Następna</a>
+                </div>
+            </div>
+     
+            <div class="container room-list">
+                @{
+                    if (ViewBag.totalPages!=0)
+                        foreach (var item in Model)
+                        {
+                            <div class="col-12 room-list-item">
+                                <h3>@item.Numer</h3>
+                                <h5>@item.Opis</h5>
+                                <h4>@item.Uwagi</h4>
+                                <h5>Miejsca : @item.Miejsca</h5>
+                            </div>
+                        }
+                    else
+                    {
+                        <div class="col-12 text-center">
+                            <h3>Nie znaleziono sal</h3>
+                        </div>
+                    }
+                }
+            </div>
+        </div>   
+    </div>
+</div>
+
+
+
+
+<!--container box-shadow d-sm-flex align-items-center justify-content-center -->
