@@ -23,13 +23,11 @@ namespace Clavis.Controllers
         public async Task<IActionResult> Index(
             string sortOrder, 
             string numer, 
-            bool access, 
+            string access, 
             int amount, 
             int? pageNumber , 
             int pageSize = 4)
         {
-            //if (numer == null)
-            //    numer = "";
 
             var result = from s in _db.Rooms select s;
         
@@ -58,6 +56,11 @@ namespace Clavis.Controllers
                     result = result.Where(Room => EF.Functions.Like(Room.Numer, "%" + ViewData["searchNumer"] + "%") && Room.Miejsca >= amount).OrderBy(Room => Room.RoomsId);
                     break;
             }
+            if (access=="on") {
+                var temp = from u in _db.Uprawnienia where u.UsersId == HttpContext.Session.GetInt32("Id") select u.RoomsId;
+                result = from r in result where temp.Contains(r.RoomsId) select r;
+            }
+                    
            
             ViewBag.numer = numer;
             ViewBag.access = access;
@@ -86,5 +89,31 @@ namespace Clavis.Controllers
             ViewBag.Role = HttpContext.Session.GetString("Role");
             return View("UserPage");
         }
+
+        [HttpGet]
+        public IActionResult Room(int room_id)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+                return RedirectToAction("Index", "Home");
+
+            Room room = _db.Rooms.Where(r => r.RoomsId == room_id).FirstOrDefault();
+            if (room != null)
+            {
+                ViewBag.Error = false;
+                ViewBag.Title = room.Numer;
+                ViewBag.Desc = room.Opis;
+                ViewBag.Uwagi = room.Uwagi;
+                ViewBag.Miejsca = room.Miejsca.ToString();
+                if (_db.Uprawnienia.Where(u => u.UsersId == HttpContext.Session.GetInt32("Id") && u.RoomsId == room_id).Count() == 0)
+                    ViewBag.Dostepnosc = false;
+                else
+                    ViewBag.Dostepnosc = true;
+            }
+            else
+                ViewBag.Error = true;
+                          
+            return View();
+        }
+
     }
 }

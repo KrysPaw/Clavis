@@ -1,8 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
+﻿<div class="text-center">
     <h3 style="color:#eee; margin-top:150px;">Witaj w systemie Clavis</h3>
-    <button class="login-button-home" asp-controller="Home" asp-action="Login">Zaloguj się</button>
+    <form method="get">
+        <button class="login-button-home" asp-controller="Home" asp-action="Login">Zaloguj się</button>
+    </form>    
 </div>

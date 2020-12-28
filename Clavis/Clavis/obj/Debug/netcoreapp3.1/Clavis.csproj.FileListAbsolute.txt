@@ -190,3 +190,4 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\PagedL
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\UserPage.cshtml.g.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Room.cshtml.g.cs

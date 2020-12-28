@@ -16,8 +16,6 @@ namespace Clavis.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
 
         private readonly ClavisDbContext _db;
 
@@ -28,7 +26,10 @@ namespace Clavis.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+                return View();
+            else
+                return RedirectToAction("UserPage", "User");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -39,8 +40,11 @@ namespace Clavis.Controllers
 
         [HttpGet]
         public IActionResult Login()
-        {          
-            return View();
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+                return View();
+            else
+                return RedirectToAction("UserPage", "User");
         }
 
 
@@ -61,13 +65,10 @@ namespace Clavis.Controllers
             HttpContext.Session.SetString("Nazwisko", loggedInUser.Nazwisko); 
             HttpContext.Session.SetString("Email", loggedInUser.Email); 
             HttpContext.Session.SetString("Upr", loggedInUser.Uprawnienia); 
+            HttpContext.Session.SetInt32("Id", loggedInUser.UsersId);
 
+            Response.Cookies.Append("LastLoggedInTime", DateTime.Now.ToString());
             return RedirectToAction("UserPage","User");
-        }
-
-        public IActionResult Register(string username, string password)
-        {
-            return RedirectToAction("Index");
         }
         
         public IActionResult Logout()
