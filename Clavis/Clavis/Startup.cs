@@ -29,7 +29,13 @@ namespace Clavis
             services.AddControllersWithViews();
             services.AddDbContext<ClavisDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddMvc();
+
+            
             /*
             {
                 config.UseInMemoryDatabase("data");
@@ -70,6 +76,7 @@ namespace Clavis
 
             app.UseAuthentication();
 
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

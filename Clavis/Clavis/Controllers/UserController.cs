@@ -7,6 +7,7 @@ using Clavis.Models;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using Clavis.Paging;
+using Microsoft.AspNetCore.Http;
 
 namespace Clavis.Controllers
 {
@@ -75,5 +76,15 @@ namespace Clavis.Controllers
             return View("Index");
         }
 
+        public IActionResult UserPage()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            ViewBag.Imie = HttpContext.Session.GetString("Imie");
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            return View("UserPage");
+        }
     }
 }

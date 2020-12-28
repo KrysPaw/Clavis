@@ -1,19 +1,18 @@
-﻿
-@{
-    //ViewData["Title"] = "Home Page";
-}
+﻿@model Clavis.Models.User
+
 <div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; width:70%; min-height:50%" class="container login-box">
     <div class="text-center" id="login-tab">
         <h1 style="color: #e5e5e5; margin-bottom:50px; margin-top:50px;">Logowanie</h1>
-        <form action="/Home/Login" method="post" id="loginform">
+        <h2>@ViewBag.Message</h2>
+        <form asp-action="Login" method="post" id="loginform">
             <div class="d-block login-field">
                 <label>Login : </label>
-                <input class="login-input" type="text" name="username" value="" />
+                <input asp-for="Login" class="login-input" type="text" name="Login" value="" />
             </div>
             <br />
             <div class="d-block login-field">
                 <label>Hasło : </label>
-                <input class="login-input" type="password" name="password" value="" />
+                <input asp-for="Password" class="login-input" type="password" name="Password" value="" />
             </div>
             <button class="login-button" type="submit">Zaloguj</button>
         </form>

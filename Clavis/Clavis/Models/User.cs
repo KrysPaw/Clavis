@@ -33,8 +33,8 @@ namespace Clavis.Models
         [StringLength(30)]
         public string Login { get; set; }
         [Column("password")]
-        [MaxLength(64)]
-        public byte[] Password { get; set; }
+        [StringLength(30)]
+        public string Password { get; set; }
         [Required]
         [Column("uprawnienia")]
         [StringLength(20)]

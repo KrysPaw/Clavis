@@ -1,4 +1,5 @@
 ﻿using Clavis.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ namespace Clavis.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet]
         public IActionResult Login()
         {          
             return View();
@@ -43,34 +45,35 @@ namespace Clavis.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
+        public IActionResult Login(User user)
         {
-
-            //login functionality
-            var user = _userManager.FindByNameAsync(username);
-
-            if(user != null)
+            User loggedInUser = _db.Users.Where(x => x.Login == user.Login && x.Password == user.Password).FirstOrDefault();
+            Debug.WriteLine("Login : "+user.Login + "\n Password : " + user.Password);
+            if(loggedInUser == null)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(username, password, false, false);
-
-                if (signInResult.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
+                ViewBag.Message = "Nieprawidłowy login lub hasło.";
+                return View();
             }
-            return RedirectToAction("Index");
+            ViewBag.Message = "Zalogowano";
+
+            HttpContext.Session.SetString("Login", loggedInUser.Login); 
+            HttpContext.Session.SetString("Imie", loggedInUser.Imie); 
+            HttpContext.Session.SetString("Nazwisko", loggedInUser.Nazwisko); 
+            HttpContext.Session.SetString("Email", loggedInUser.Email); 
+            HttpContext.Session.SetString("Upr", loggedInUser.Uprawnienia); 
+
+            return RedirectToAction("UserPage","User");
         }
 
         public IActionResult Register(string username, string password)
         {
             return RedirectToAction("Index");
         }
-
-        public async Task<IActionResult> LogOut()
+        
+        public IActionResult Logout()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
-        }      
-
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
+        }
     }
 }
