@@ -17,6 +17,7 @@
         {
             <h3 style="color: #DC143C; margin-bottom:50px; margin-top:20px;">Nie znaleziono sali</h3>
         }
+
         @if (!ViewBag.Error && ViewBag.Dostepnosc)
         {
             <form>
@@ -42,12 +43,12 @@
                         }
                     </select>
                 </div>
-                <div class="d-block" style="margin-top: 100px;">
+                <div class="d-block" style="margin-top: 50px;">
                     <label>Wybierz godzinę : </label>
                     <select class="time-picker" name="time">
                         @for (int i = 0; i < 8; i++)
                         {
-                            string timestring = DateTime.Now.AddMinutes(90*i).ToShortTimeString() + " do " + DateTime.Now.AddMinutes(90 * (i+1));
+                            string timestring = DateTime.MinValue.AddMinutes(90 * i).ToShortTimeString() + " do " + DateTime.MinValue.AddMinutes(90 * (i + 1)).ToLongTimeString();
                             string idstring = "t" + @i.ToString();
                             <option value="@i.ToString()" id="idstring">@timestring</option>
                         }
