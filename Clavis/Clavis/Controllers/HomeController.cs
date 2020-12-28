@@ -51,14 +51,22 @@ namespace Clavis.Controllers
         [HttpPost]
         public IActionResult Login(User user)
         {
-            User loggedInUser = _db.Users.Where(x => x.Login == user.Login && x.Password == user.Password).FirstOrDefault();
-            Debug.WriteLine("Login : "+user.Login + "\n Password : " + user.Password);
-            if(loggedInUser == null)
+
+            Debug.WriteLine(BCrypt.Net.BCrypt.HashPassword(user.Password));
+            User loggedInUser = _db.Users.SingleOrDefault(x => x.Login == user.Login);
+            if (loggedInUser == null)
+            {
+                ViewBag.Message = "Nieprawidłowy login lub hasło.";
+                return View();
+            }               
+            bool validPass = BCrypt.Net.BCrypt.Verify(user.Password, loggedInUser.Password);
+            if (!validPass)
             {
                 ViewBag.Message = "Nieprawidłowy login lub hasło.";
                 return View();
             }
             ViewBag.Message = "Zalogowano";
+
 
             HttpContext.Session.SetString("Login", loggedInUser.Login); 
             HttpContext.Session.SetString("Imie", loggedInUser.Imie); 

@@ -98,3 +98,6 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Release\netcoreapp3.1\Clav
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Release\netcoreapp3.1\Clavis.dll
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Release\netcoreapp3.1\Clavis.pdb
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Release\netcoreapp3.1\Clavis.genruntimeconfig.cache
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Release\netcoreapp3.1\nunit.framework.dll
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Release\netcoreapp3.1\xunit.abstractions.dll
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Release\netcoreapp3.1\xunit.core.dll

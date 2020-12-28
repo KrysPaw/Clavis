@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using Clavis.Paging;
 using Microsoft.AspNetCore.Http;
+using NUnit.Framework;
+using Xunit;
 
 namespace Clavis.Controllers
 {
@@ -93,6 +95,7 @@ namespace Clavis.Controllers
         [HttpGet]
         public IActionResult Room(int room_id)
         {
+
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
                 return RedirectToAction("Index", "Home");
 
@@ -114,6 +117,5 @@ namespace Clavis.Controllers
                           
             return View();
         }
-
     }
 }

@@ -191,3 +191,7 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Clavis
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\UserPage.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Room.cshtml.g.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\nunit.framework.dll
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\xunit.abstractions.dll
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\xunit.core.dll
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
