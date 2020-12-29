@@ -333,3 +333,93 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+.user-panel {
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    padding: 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.user-panel h5 
+{
+    color: #222;
+    pointer-events: none;
+}
+
+.user-panel :hover 
+{
+    background-color: #f1f2f2;
+    transition: linear all 0.5s;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+}
+
+.res-box{
+    background-color: #4a4e69;
+    padding: 20px;
+    margin-top: 50px;
+    border: 1px solid #fff;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.res-box h2 
+{
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #e5e5e5;
+}
+
+.res-item {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.res-item :hover {
+    background-color: #f1f2f2;
+    transition: linear all 0.5s;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+}
+
+.res-item h5 {
+    pointer-events: none;
+    color: #424949
+}
+
+.res-item h3 {
+    color: #222;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.res-item h4 {
+    color: #333;
+    font-style: italic;
+    pointer-events: none;
+}

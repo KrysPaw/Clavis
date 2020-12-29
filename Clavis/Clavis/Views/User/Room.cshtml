@@ -4,14 +4,14 @@
     <div class="text-center" id="login-tab">
         @if (!ViewBag.Error)
         {
-            <h1 style="color: #e5e5e5; margin-bottom:50px; margin-top:50px;">@ViewBag.Title</h1>
-            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:50px;">@ViewBag.Desc</h3>
-            <h3 style="color: #DC143C; margin-bottom:20px; margin-top:20px;">@ViewBag.Uwagi</h3>
+            <h1 style="color: #e5e5e5; margin-bottom:50px; margin-top:50px;">@ViewBag.Room.Numer</h1>
+            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:50px;">@ViewBag.Room.Opis</h3>
+            <h3 style="color: #DC143C; margin-bottom:20px; margin-top:20px;">@ViewBag.Room.Uwagi</h3>
             if (!ViewBag.Dostepnosc)
             {
                 <h3 style="color: #ff6a00; margin-bottom:20px; margin-top:20px;">Nie posiadasz dostępu do tej sali</h3>
             }
-            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:20px;">Ilość miejsc w sali : @ViewBag.Miejsca</h3>
+            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:20px;">Ilość miejsc w sali : @ViewBag.Room.Miejsca</h3>
         }
         else
         {
@@ -23,7 +23,8 @@
             <form>
                 <div class="d-block" style="margin-top: 50px;">
                     <label>Wybierz date : </label>
-                    <select class="date-picker" name="date">
+                    <select id="date-select" class="date-picker" name="date" onchange="dateChange(this.id,'time-select')">
+                        <option value="none" id="date-none">---</option>
                         @for (int i = 0; i < 7; i++)
                         {
                             string day = "";
@@ -43,14 +44,17 @@
                         }
                     </select>
                 </div>
-                <div class="d-block" style="margin-top: 50px;">
-                    <label>Wybierz godzinę : </label>
-                    <select class="time-picker" name="time">
-                        @for (int i = 0; i < 8; i++)
-                        {
-                            string timestring = DateTime.MinValue.AddMinutes(90 * i).ToShortTimeString() + " do " + DateTime.MinValue.AddMinutes(90 * (i + 1)).ToLongTimeString();
-                            string idstring = "t" + @i.ToString();
-                            <option value="@i.ToString()" id="idstring">@timestring</option>
+                <div class="d-block" style="margin-top: 20px;">
+                    <label>Wybierz dostępną godzinę : </label>
+                    <select id ="time-select" class="date-picker" name="time">
+                        @{
+                            DateTime time = DateTime.MinValue.AddHours(7);
+                            for (int i = 0; i < 8; i++)
+                            {                                
+                                string timestring = time.AddMinutes(90 * i).ToShortTimeString() + " do " + time.AddMinutes(90 * (i + 1)).ToShortTimeString();
+                                string idstring = "t" + @i.ToString();
+                                <option value="@i.ToString()" id="idstring">@timestring</option>
+                            }
                         }
                     </select>
                 </div>

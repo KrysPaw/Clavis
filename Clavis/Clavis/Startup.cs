@@ -20,7 +20,7 @@ namespace Clavis
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<ClavisDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 

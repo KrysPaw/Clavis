@@ -1,9 +1,11 @@
 ﻿using Clavis.Models;
 using Clavis.Paging;
+using Clavis.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -99,11 +101,9 @@ namespace Clavis.Controllers
             Room room = _db.Rooms.Where(r => r.RoomsId == room_id).FirstOrDefault();
             if (room != null)
             {
-                ViewBag.Error = false;
-                ViewBag.Title = room.Numer;
-                ViewBag.Desc = room.Opis;
-                ViewBag.Uwagi = room.Uwagi;
-                ViewBag.Miejsca = room.Miejsca.ToString();
+                ViewBag.Room = room;
+                ViewBag.Error = false;                                    
+
                 if (_db.Uprawnienia.Where(u => u.UsersId == HttpContext.Session.GetInt32("Id") && u.RoomsId == room_id).Count() == 0)
                     ViewBag.Dostepnosc = false;
                 else
@@ -114,5 +114,36 @@ namespace Clavis.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Reservations()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+            {
+                return View();
+            }
+            var result = _db.Rezerwacjes.Where(r => r.UsersId == HttpContext.Session.GetInt32("Id")).ToList();
+            List<RezerwacjeView> list = new List<RezerwacjeView>();
+            foreach(var item in result)
+            {
+                //_db.Dispose();
+                string room = _db.Rooms.Where(r => r.RoomsId == item.RoomsId).Select(r=>r.Numer).FirstOrDefault();
+                string status = "";
+                switch (item.Status)
+                {
+                    case 0: status = "Zaakceptowana"; break;
+                    case 1: status = "Odrzucona"; break;
+                    case 2: status = "Wydano klucze"; break;
+                    case 3: status = "Zakończona"; break;
+                    case 4: status = "Oczekiwanie na zwrot kluczy"; break;
+                }
+                RezerwacjeView rez = new RezerwacjeView(item.RezerwacjeId,room,item.DateFrom,item.DateTo,status);
+                rez.StatusInt = item.Status;
+                rez.DateReturn = item.DateReturn;
+                list.Add(rez);
+            }
+            return View(list);
+        }
+
     }
 }

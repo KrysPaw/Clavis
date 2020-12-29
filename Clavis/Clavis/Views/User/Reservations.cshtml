@@ -1,0 +1,50 @@
+﻿
+
+
+<div class="row">
+    <div class="col-sm-5 m-2 res-box">
+        <h2 class="text-center">Historia rezerwacji</h2>
+        <div>
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.DateTo < DateTime.Now)
+                    {
+                        <div class="col-12 res-item">
+                            <h3>@item.RoomNumer</h3>
+                            <h4>@item.DateFrom.ToShortDateString()</h4>
+                            <h5>@item.DateFrom.ToShortTimeString() - @item.DateTo.ToShortTimeString()</h5>
+                            <h5>Status : @item.Status</h5>
+                            @if (item.StatusId == 3)
+                            {
+                                <h5>Data zwrotu : @item.DateReturn</h5>
+                            }
+                        </div>
+                    }
+
+                }
+            }
+        </div>
+    </div>
+
+    <div class="col-sm-5 m-2 res-box">
+        <h2 class="text-center">Bieżące rezerwacje</h2>
+        <div>
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.DateTo >= DateTime.Now)
+                    {
+                        <div class="col-12 res-item">
+                            <h3>@item.RoomNumer</h3>
+                            <h4>@item.DateFrom.ToShortDateString()</h4>
+                            <h5>@item.DateFrom.ToShortTimeString() - @item.DateTo.ToShortTimeString()</h5>
+                            <h5>Status : @item.Status</h5>
+                        </div>
+                    }
+
+                }
+            }
+        </div>
+    </div>
+</div>
