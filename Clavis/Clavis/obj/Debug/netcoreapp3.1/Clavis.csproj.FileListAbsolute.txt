@@ -495,3 +495,5 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\tr\Mic
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Reservations.cshtml.g.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\Account.cshtml.g.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\User\changePassword.cshtml.g.cs

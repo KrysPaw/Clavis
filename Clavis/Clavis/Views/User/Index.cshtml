@@ -50,16 +50,16 @@
             }
 
             <div class="row text-center">
-                <div class="col-3">
+                <div class="col-4">
                     <a asp-action="Index" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-amount="@ViewData["searchMiejsca"]" asp-route-numer="@ViewData["searchNumer"]" asp-route-pageNumber="@(Model.PageIndex-1)" type="submit" class="btn btn-default page-button @prevDisabled">Poprzednia</a>
                 </div>
-                <div class="col-6 page-info">
+                <div class="col-4 page-info">
                     @if (ViewBag.totalPages != 0)
                     {
                         <h5>Strona @ViewBag.pageIndex / @ViewBag.totalPages</h5>
                     }
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <a asp-action="Index" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-amount="@ViewData["searchMiejsca"]" asp-route-numer="@ViewData["searchNumer"]" asp-route-pageNumber="@(Model.PageIndex+1)" type="submit" class="btn btn-default page-button @nextDisabled">Następna</a>
                 </div>
             </div>

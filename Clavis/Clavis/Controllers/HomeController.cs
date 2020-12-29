@@ -44,8 +44,6 @@ namespace Clavis.Controllers
         [HttpPost]
         public IActionResult Login(User user)
         {
-
-            Debug.WriteLine(BCrypt.Net.BCrypt.HashPassword(user.Password));
             User loggedInUser = _db.Users.SingleOrDefault(x => x.Login == user.Login);
             if (loggedInUser == null)
             {

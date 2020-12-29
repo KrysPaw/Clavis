@@ -21,7 +21,7 @@ namespace Clavis.Models
         [Column("date_to", TypeName = "datetime")]
         public DateTime DateTo { get; set; }
         [Column("date_return", TypeName = "datetime")]
-        public DateTime DateReturn { get; set; }
+        public DateTime? DateReturn { get; set; }
         [Column("status")]
         public int Status { get; set; }
 

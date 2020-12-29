@@ -2,14 +2,79 @@
 
 
 <div class="row">
-    <div class="col-sm-5 m-2 res-box">
-        <h2 class="text-center">Historia rezerwacji</h2>
+    <div class="col-lg-5 m-2 res-box">
+        <h2 class="text-center">Bieżące rezerwacje</h2>
         <div>
-            @{
-                foreach (var item in Model)
-                {
-                    if (item.DateTo < DateTime.Now)
+            @if (ViewBag.currentTotalPages != 0)
+            {
+                var CprevDisabled = !ViewBag.currentPageList.HasPreviousPage ? "disabled" : "";
+                var CnextDisabled = !ViewBag.currentPAgeList.HasNextPage ? "disabled" : "";
+
+                <div class="row text-center">
+                    <div class="col-4">
+                        <a asp-action="Reservations" asp-route-currentPageNumber="@(ViewBag.currentPageIndex-1)" asp-route-historyPageNumber="@(ViewBag.historyPageIndex)" type="submit" class="btn btn-default page-button @CprevDisabled">Poprzednia</a>
+                    </div>
+                    <div class="col-4 page-info">
+                        @if (ViewBag.currentTotalPages != 0)
+                        {
+                            <h5>Strona @ViewBag.currentPageIndex / @ViewBag.currentTotalPages</h5>
+                        }
+                    </div>
+                    <div class="col-4">
+                        <a asp-action="Reservations" asp-route-currentPageNumber="@(ViewBag.currentPageIndex+1)" asp-route-historyPageNumber="@(ViewBag.historyPageIndex)" type="submit" class="btn btn-default page-button @CnextDisabled">Następna</a>
+                    </div>
+                </div>
+                <div>
+                    @{
+                        foreach (var item in ViewBag.currentPageList)
+                        {
+
+                            <div class="col-12 res-item">
+                                <h3>@item.RoomNumer</h3>
+                                <h4>@item.DateFrom.ToShortDateString()</h4>
+                                <h5>@item.DateFrom.ToShortTimeString() - @item.DateTo.ToShortTimeString()</h5>
+                                <h5>Status : @item.Status</h5>
+                                @if (item.StatusId == 3)
+                                {
+                                    <h5>Data zwrotu : @item.DateReturn</h5>
+                                }
+                            </div>
+
+
+                        }
+                    }
+                </div>
+            }
+            else
+            {
+                <h4 class="text-center">Tutaj pojawią się aktualne rezerwacje</h4>
+            }
+        </div>
+    </div>
+    <div class="col-lg-5 m-2 res-box">
+        <h2 class="text-center">Historia rezerwacji</h2>
+        @if (ViewBag.historyTotalPages != 0)
+        {
+
+            var HprevDisabled = !ViewBag.historyPageList.HasPreviousPage ? "disabled" : "";
+            var HnextDisabled = !ViewBag.historyPAgeList.HasNextPage ? "disabled" : "";
+
+            <div class="row text-center">
+                <div class="col-4">
+                    <a asp-action="Reservations" asp-route-historyPageNumber="@(ViewBag.historyPageIndex-1)" asp-route-currentPageNumber="@(ViewBag.currentPageIndex)" type="submit" class="btn btn-default page-button @HprevDisabled">Poprzednia</a>
+                </div>
+                <div class="col-4 page-info">
+                    <h5>Strona @ViewBag.historyPageIndex / @ViewBag.historyTotalPages</h5>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Reservations" asp-route-historyPageNumber="@(ViewBag.historyPageIndex+1)" asp-route-currentPageNumber="@(ViewBag.currentPageIndex)" type="submit" class="btn btn-default page-button @HnextDisabled">Następna</a>
+                </div>
+            </div>
+            <div>
+                @{
+                    foreach (var item in ViewBag.historyPageList)
                     {
+
                         <div class="col-12 res-item">
                             <h3>@item.RoomNumer</h3>
                             <h4>@item.DateFrom.ToShortDateString()</h4>
@@ -20,31 +85,15 @@
                                 <h5>Data zwrotu : @item.DateReturn</h5>
                             }
                         </div>
+
+
                     }
-
                 }
-            }
-        </div>
-    </div>
-
-    <div class="col-sm-5 m-2 res-box">
-        <h2 class="text-center">Bieżące rezerwacje</h2>
-        <div>
-            @{
-                foreach (var item in Model)
-                {
-                    if (item.DateTo >= DateTime.Now)
-                    {
-                        <div class="col-12 res-item">
-                            <h3>@item.RoomNumer</h3>
-                            <h4>@item.DateFrom.ToShortDateString()</h4>
-                            <h5>@item.DateFrom.ToShortTimeString() - @item.DateTo.ToShortTimeString()</h5>
-                            <h5>Status : @item.Status</h5>
-                        </div>
-                    }
-
-                }
-            }
-        </div>
+            </div>
+        }
+        else
+        {
+            <h4 class="text-center">Tutaj pojawi się historia rezerwacji</h4>
+        }
     </div>
 </div>

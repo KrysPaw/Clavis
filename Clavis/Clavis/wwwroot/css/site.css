@@ -389,22 +389,13 @@ body {
     background-color: #bfc0c0;
     border: none;
     color: #111;
-    padding: 15px 32px;
+    padding: 10px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
     box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
-}
-
-.res-item :hover {
-    background-color: #f1f2f2;
-    transition: linear all 0.5s;
-    cursor: pointer;
-    -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
 }
 
 .res-item h5 {
@@ -422,4 +413,28 @@ body {
     color: #333;
     font-style: italic;
     pointer-events: none;
+}
+
+.acc-box {
+    background-color: #4a4e69;
+    padding: 20px;
+    margin-top: 50px;
+    border: 1px solid #fff;
+    color: #111;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.pc-input 
+{
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
 }

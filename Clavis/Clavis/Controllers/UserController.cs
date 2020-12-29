@@ -116,34 +116,55 @@ namespace Clavis.Controllers
         }
 
         [HttpGet]
-        public IActionResult Reservations()
+        public async Task<IActionResult> Reservations(
+            int? historyPageNumber,
+            int? currentPageNumber,
+            int historyPageSize = 6,            
+            int currentPageSize = 6
+            )
         {
+
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
             {
-                return View();
+                return RedirectToAction("Index","Home");
             }
-            var result = _db.Rezerwacjes.Where(r => r.UsersId == HttpContext.Session.GetInt32("Id")).ToList();
-            List<RezerwacjeView> list = new List<RezerwacjeView>();
-            foreach(var item in result)
-            {
-                //_db.Dispose();
-                string room = _db.Rooms.Where(r => r.RoomsId == item.RoomsId).Select(r=>r.Numer).FirstOrDefault();
-                string status = "";
-                switch (item.Status)
-                {
-                    case 0: status = "Zaakceptowana"; break;
-                    case 1: status = "Odrzucona"; break;
-                    case 2: status = "Wydano klucze"; break;
-                    case 3: status = "Zakończona"; break;
-                    case 4: status = "Oczekiwanie na zwrot kluczy"; break;
-                }
-                RezerwacjeView rez = new RezerwacjeView(item.RezerwacjeId,room,item.DateFrom,item.DateTo,status);
-                rez.StatusInt = item.Status;
-                rez.DateReturn = item.DateReturn;
-                list.Add(rez);
-            }
-            return View(list);
+            var result = _db.Rezerwacjes.Where(r => r.UsersId == HttpContext.Session.GetInt32("Id") && r.DateTo < DateTime.Now).OrderBy(r=>r.DateFrom).
+                Join(_db.Rooms, rez => rez.RoomsId, room => room.RoomsId, (rez, room) => new RezerwacjeView(
+                        rez.RezerwacjeId, room.Numer, rez.DateFrom, rez.DateTo, rez.Status));
+
+            var phList = await PaginatedList<RezerwacjeView>.CreateAsync(result, historyPageNumber ?? 1, historyPageSize);
+            //List<RezerwacjeView> list = new List<RezerwacjeView>();          
+            //var plist = await PaginatedList<RezerwacjeView>.CreateAsync(result, pageNumber ?? 1, pageSize);
+
+            result = _db.Rezerwacjes.Where(r => r.UsersId == HttpContext.Session.GetInt32("Id") && r.DateTo >= DateTime.Now).OrderBy(r => r.DateFrom).
+                Join(_db.Rooms, rez => rez.RoomsId, room => room.RoomsId, (rez, room) => new RezerwacjeView(
+                        rez.RezerwacjeId, room.Numer, rez.DateFrom, rez.DateTo, rez.Status));
+
+            var pcList = await PaginatedList<RezerwacjeView>.CreateAsync(result, currentPageNumber ?? 1, currentPageSize);
+            ViewBag.historyTotalPages = phList.TotalPages;
+            ViewBag.historyPageIndex = phList.PageIndex;
+            ViewBag.currentTotalPages = pcList.TotalPages;
+            ViewBag.currentPageIndex = pcList.PageIndex;
+            ViewBag.historyPageList = phList;
+            ViewBag.currentPageList = pcList;
+            return View("Reservations");
         }
 
+        [HttpGet]
+        public IActionResult Account()
+        {
+            User user = new User();
+            user.Imie = HttpContext.Session.GetString("Imie");
+            user.Nazwisko = HttpContext.Session.GetString("Nazwisko");
+            user.Email = HttpContext.Session.GetString("Email");
+            user.Uprawnienia = HttpContext.Session.GetString("Uprawnienia");
+            return View(user);
+        }
+
+        [HttpGet]
+        public IActionResult changePassword()
+        {
+            return View();
+        }
     }
 }
