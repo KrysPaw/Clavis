@@ -1,5 +1,3 @@
-using System;
-
 namespace Clavis.Models
 {
     public class ErrorViewModel

@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Clavis.Models;
-using Microsoft.EntityFrameworkCore;
-using PagedList.Core;
+﻿using Clavis.Models;
 using Clavis.Paging;
 using Microsoft.AspNetCore.Http;
-using NUnit.Framework;
-using Xunit;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Clavis.Controllers
 {
@@ -23,21 +19,21 @@ namespace Clavis.Controllers
         }
 
         public async Task<IActionResult> Index(
-            string sortOrder, 
-            string numer, 
-            string access, 
-            int amount, 
-            int? pageNumber , 
+            string sortOrder,
+            string numer,
+            string access,
+            int amount,
+            int? pageNumber,
             int pageSize = 4)
         {
 
             var result = from s in _db.Rooms select s;
-        
+
             ViewData["SortParam"] = String.IsNullOrEmpty(sortOrder) ? ViewData["SortParam"] : sortOrder;
             ViewData["searchNumer"] = String.IsNullOrEmpty(numer) ? "" : numer;
             ViewData["searchMiejsca"] = amount;
 
-            if (numer == "")          
+            if (numer == "")
                 numer = ViewData["searchNumer"].ToString();
 
             switch (sortOrder)
@@ -58,12 +54,13 @@ namespace Clavis.Controllers
                     result = result.Where(Room => EF.Functions.Like(Room.Numer, "%" + ViewData["searchNumer"] + "%") && Room.Miejsca >= amount).OrderBy(Room => Room.RoomsId);
                     break;
             }
-            if (access=="on") {
+            if (access == "on")
+            {
                 var temp = from u in _db.Uprawnienia where u.UsersId == HttpContext.Session.GetInt32("Id") select u.RoomsId;
                 result = from r in result where temp.Contains(r.RoomsId) select r;
             }
-                    
-           
+
+
             ViewBag.numer = numer;
             ViewBag.access = access;
             ViewBag.sp = 0;
@@ -77,7 +74,7 @@ namespace Clavis.Controllers
 
         public IActionResult PageUp(int page)
         {
-            ViewData["page"] = page+1;
+            ViewData["page"] = page + 1;
             return View("Index");
         }
 
@@ -114,7 +111,7 @@ namespace Clavis.Controllers
             }
             else
                 ViewBag.Error = true;
-                          
+
             return View();
         }
     }
