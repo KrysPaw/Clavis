@@ -1,0 +1,46 @@
+﻿@model Clavis.Models.Room
+
+<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
+    <div class="text-center" id="login-tab">
+        @if (!ViewBag.Error)
+        {
+            <h1 style="color: #e5e5e5; margin-bottom:50px; margin-top:50px;">Informacje o sali [ @ViewBag.Room.RoomsId ]</h1>
+            <h1 style="color: #e5e5e5; margin-bottom:50px; margin-top:50px;">@ViewBag.Room.Numer</h1>
+            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:50px;">@ViewBag.Room.Opis</h3>
+            <h3 style="color: #dc143c; margin-bottom:20px; margin-top:20px;">@ViewBag.Room.Uwagi</h3>
+            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:20px;">Ilość miejsc w sali : @ViewBag.Room.Miejsca</h3>
+            <a style="text-decoration:none;" asp-controller="Manager" asp-action="Reservations" asp-route-filter="@ViewBag.Room.Numer">
+                <div class="login-button">
+                    Rezerwacje
+                </div>
+            </a>
+            <a style="text-decoration:none;" asp-controller="Manager" asp-action="RoomEdit" asp-route-room_id="@ViewBag.Room.RoomsId">
+                <div class="login-button">
+                    Edytuj
+                </div>
+            </a>
+            <div class="form-check">
+                <form method="post" asp-controller="Manager" asp-action="RoomDelete" asp-route-room_id="@ViewBag.Room.RoomsId">
+                    <h4>Usuwanie sali</h4>
+                    <h5>Uwaga! Zostaną usunięte wszystkie rekordy rezerwacji dotyczące tej sali.</h5>
+                    <h5>Wprowadź numer ID sali jako potwierdzenie</h5>
+                    <input type="text" name="confId" />
+                    @if (ViewBag.BadId == true)
+                    {
+                        <h5 style="color:#ff6a00;">Wprowadzony numer ID nie jest poprawny</h5>
+                    }
+                    <button class="login-button" type="submit">Usuń</button>
+                </form>                
+            </div>
+
+        }
+        else
+        {
+            <h3 style="color: #DC143C; margin-bottom:50px; margin-top:20px;">Nie znaleziono sali</h3>
+        }
+
+
+    </div>
+</div>
+
+<!--container box-shadow d-sm-flex align-items-center justify-content-center -->

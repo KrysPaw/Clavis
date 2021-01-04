@@ -37,6 +37,9 @@ namespace Clavis.Models
         [Column("uprawnienia")]
         [StringLength(20)]
         public string Uprawnienia { get; set; }
+        [Required]
+        [Column("new")]
+        public bool New {get; set;}
 
         [InverseProperty(nameof(Rezerwacje.Users))]
         public virtual ICollection<Rezerwacje> Rezerwacjes { get; set; }

@@ -1,6 +1,6 @@
 ﻿@model Clavis.Models.Room
 
-<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; width:70%; min-height:50%" class="container login-box">
+<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
     <div class="text-center" id="login-tab">
         @if (!ViewBag.Error)
         {
@@ -20,45 +20,56 @@
 
         @if (!ViewBag.Error && ViewBag.Dostepnosc)
         {
-            <form>
-                <div class="d-block" style="margin-top: 50px;">
-                    <label>Wybierz date : </label>
-                    <select id="date-select" class="date-picker" name="date" onchange="dateChange(this.id,'time-select')">
-                        <option value="none" id="date-none">---</option>
-                        @for (int i = 0; i < 7; i++)
-                        {
-                            string day = "";
-
-                            switch (DateTime.Now.AddDays(i).DayOfWeek.ToString())
+            if (ViewBag.SelectedDate == null)
+            {
+                <form asp-controller="User" asp-action="Room" asp-route-room_id="@ViewBag.Room.RoomsId">
+                    <h4>Rezerwacja</h4>
+                    <h5>Proszę wybrać date</h5>
+                        <select id="date-select" class="date-picker" name="date">
+                            @for (int i = 0; i < 7; i++)
                             {
-                                case "Monday": day = "Poniedziałek"; break;
-                                case "Tuesday": day = "Wtorek"; break;
-                                case "Wednesday": day = "Środa"; break;
-                                case "Thursday": day = "Czwartek"; break;
-                                case "Friday": day = "Piątek"; break;
-                                case "Saturday": day = "Sobota"; break;
-                                case "Sunday": day = "Niedziela"; break;
+                                string day = "";
+
+                                switch (DateTime.Now.AddDays(i).DayOfWeek.ToString())
+                                {
+                                    case "Monday": day = "Poniedziałek"; break;
+                                    case "Tuesday": day = "Wtorek"; break;
+                                    case "Wednesday": day = "Środa"; break;
+                                    case "Thursday": day = "Czwartek"; break;
+                                    case "Friday": day = "Piątek"; break;
+                                    case "Saturday": day = "Sobota"; break;
+                                    case "Sunday": day = "Niedziela"; break;
+                                }
+                                string datestring = DateTime.Now.AddDays(i).ToShortDateString() + " " + day;
+                                <option value="@i.ToString()" id="@i.ToString()" name="datetime">@datestring</option>
                             }
-                            string datestring = DateTime.Now.AddDays(i).ToShortDateString() + " " + day;
-                            <option value="@i.ToString()" id="@i.ToString()">@datestring</option>
+                        </select>
+                        <button class="login-button" type="submit">Dodaj rezerwacje</button>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="User" asp-action="Room" asp-route-room_id="@ViewBag.Room.RoomsId" asp-route-date="@ViewBag.SelectedDate">
+                    <h4>Rezerwacja</h4>
+                    @{
+                        DateTime data = DateTime.Now.Date.AddDays(ViewBag.SelectedDate);
+                    }
+                    <h5>Wybrana data : @data.ToShortDateString()</h5>
+                    <h5>Proszę wybrać z listy wolnych godzin :</h5>
+                    <select id="date-select" class="date-picker" name="time">
+                        @for (int i = 0; i < 8; i++)
+                        {
+                            string timestring = DateTime.MinValue.AddHours(7).AddMinutes(90*i).ToShortTimeString() + " : " + DateTime.MinValue.AddHours(7).AddMinutes(90 * (i+1)).ToShortTimeString();
+                            if (ViewBag.Terms[i] != -1)
+                            {
+                                <option value="@i.ToString()">@timestring</option>
+                            }                          
                         }
                     </select>
-                </div>
-                <div class="d-block" style="margin-top: 20px;">
-                    <label>Wybierz dostępną godzinę : </label>
-                    <select id ="time-select" class="date-picker" name="time">
-                        @{
-                            DateTime time = DateTime.MinValue.AddHours(7);
-                            for (int i = 0; i < 8; i++)
-                            {                                
-                                string timestring = time.AddMinutes(90 * i).ToShortTimeString() + " do " + time.AddMinutes(90 * (i + 1)).ToShortTimeString();
-                                string idstring = "t" + @i.ToString();
-                                <option value="@i.ToString()" id="idstring">@timestring</option>
-                            }
-                        }
-                    </select>
-                </div>
-            </form>            
+                    <button class="login-button" type="submit">Zatwierdź</button>
+                </form>
+            }
+
         }
 
     </div>

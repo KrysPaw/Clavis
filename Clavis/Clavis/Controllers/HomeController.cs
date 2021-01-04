@@ -19,10 +19,13 @@ namespace Clavis.Controllers
 
         public IActionResult Index()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
-                return View();
-            else
-                return RedirectToAction("UserPage", "User");
+            switch (HttpContext.Session.GetString("Upr"))
+            {
+                case "user": return RedirectToAction("UserPage", "User");
+                case "manager": return RedirectToAction("MainPage", "Manager");
+                case "admin": return RedirectToAction("MainPage", "Admin");
+                default: return View();
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -34,10 +37,13 @@ namespace Clavis.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
-                return View();
-            else
-                return RedirectToAction("UserPage", "User");
+            switch (HttpContext.Session.GetString("Upr"))
+            {
+                case "user": return RedirectToAction("UserPage", "User");
+                case "manager": return RedirectToAction("MainPage", "Manager");
+                case "admin": return RedirectToAction("MainPage", "Admin");
+                default: return View();
+            }
         }
 
 
@@ -65,9 +71,18 @@ namespace Clavis.Controllers
             HttpContext.Session.SetString("Email", loggedInUser.Email);
             HttpContext.Session.SetString("Upr", loggedInUser.Uprawnienia);
             HttpContext.Session.SetInt32("Id", loggedInUser.UsersId);
+            HttpContext.Session.SetString("New", loggedInUser.New.ToString());
 
             Response.Cookies.Append("LastLoggedInTime", DateTime.Now.ToString());
-            return RedirectToAction("UserPage", "User");
+            switch (HttpContext.Session.GetString("Upr"))
+            {
+                case "user": return RedirectToAction("UserPage", "User");
+                case "manager": return RedirectToAction("MainPage", "Manager");
+                case "admin": return RedirectToAction("MainPage", "Admin");
+                default: return View();
+            }
+            return RedirectToAction("Index", "Home");
+            
         }
 
         public IActionResult Logout()

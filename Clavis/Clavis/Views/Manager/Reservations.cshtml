@@ -1,0 +1,95 @@
+﻿@model Clavis.Paging.PaginatedList<Clavis.ViewModels.RezerwacjeView>
+@using Microsoft.AspNetCore.Http;
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<div class="row">
+    <div class="col-lg-4 filter-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Opcje</h2>
+            <form asp-action="Reservations" method="get">
+                <div class="d-block filter-options">
+                    <label class="d-inline-block">Filtr : </label>
+                    <input class="numer-filter" type="text" name="filter" value="@ViewData["Filter"]" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Tylko bieżące : </label>
+                    <input class="access-filter" type="checkbox" name="currentOnly" checked="@ViewData["CurrentOnly"]" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Sortowanie : </label>
+                    <select class="sort" name="sortOrder">
+                        <option value="none" id="none">--</option>
+                        <option value="data" id="numUp">Data: rosnąco</option>
+                        <option value="dataDesc" id="numDown">Data: malejąco</option>
+                        <option value="user" id="mieUp">Użytkownik: rosnąco</option>
+                        <option value="userDesc" id="mieDown">Użytkownik: malejąco</option>
+                        <option value="room" id="mieUp">Sala: rosnąco</option>
+                        <option value="roomDesc" id="mieDown">Sala: malejąco</option>
+                    </select>
+                </div>
+                <center>
+                    <div class="d-block filter-options">
+                        <button asp-action="Reservations" class="submit-button" type="submit" name="submit_button">Szukaj</button>
+                    </div>
+                </center>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 room-list-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Lista sal</h2>
+
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+
+            <div class="row text-center">
+                <div class="col-4">
+                    <a asp-action="Reservations" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageNumber="@(Model.PageIndex-1)" asp-route-currentOnly="@ViewData["CurrentOnly"]" type="submit" class="btn btn-default page-button @prevDisabled">Poprzednia</a>
+                </div>
+                <div class="col-4 page-info">
+                    @if (ViewBag.totalPages != 0)
+                    {
+                        <h5>Strona @ViewBag.pageIndex / @ViewBag.totalPages</h5>
+                    }
+                </div>
+                <div class="col-4">
+                    <a asp-action="Reservations" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageNumber="@(Model.PageIndex+1)" asp-route-currentOnly="@ViewData["CurrentOnly"]" type="submit" class="btn btn-default page-button @nextDisabled">Następna</a>
+                </div>
+            </div>
+
+            <div class="container room-list">
+                @{
+                    foreach (var item in Model)
+                    {
+                        <a style="text-decoration: none;" asp-controller="Manager" asp-action="Reservation" asp-route-rez_id="@item.ID">
+                            <div class="col-12 res-item">
+                                <h3>@item.room.Numer</h3>
+                                <h4>@item.DateFrom.ToShortDateString()</h4>
+                                <h5>@item.DateFrom.ToShortTimeString() - @item.DateTo.ToShortTimeString()</h5>
+                                <h5>Wypożyczający : @item.user.Imie @item.user.Nazwisko </h5>
+                                <h5>Status : @item.Status</h5>
+                                @if (item.StatusId == 3)
+                                {
+                                    <h5>Data zwrotu : @item.DateReturn</h5>
+                                }
+                            </div>
+                        </a>
+                    }
+                }
+            </div>
+            @if (ViewBag.totalPages == 0)
+            {
+                <div class="col-12 text-center">
+                    <h3>Nie znaleziono sal</h3>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+

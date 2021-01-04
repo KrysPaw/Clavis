@@ -1,0 +1,30 @@
+﻿@model Clavis.Models.Room
+
+<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
+    <div class="text-center">
+        <h1 style="color: #e5e5e5; margin-bottom:30px; margin-top:50px;">Dodawanie sali</h1>
+        <form asp-action="RoomAdd" method="post">
+            <div class="d-block">
+                <label>Numer : </label>
+                <input asp-for="Numer" class="pc-input" type="text" name="Numer" value="@Model.Numer" />
+            </div>
+            <br />
+            <div class="d-block">
+                <label>Opis : </label>
+                <textarea asp-for="Opis" class="pc-input" type="text" name="Opis" value="@Model.Opis"></textarea>
+            </div>
+            <br />
+            <div class="d-block">
+                <label>Uwagi : </label>
+                <input asp-for="Uwagi" class="pc-input" type="text" name="Uwagi" value="@Model.Uwagi" />
+            </div>
+            <div class="d-block">
+                <label>Miejsca : </label>
+                <input asp-for="Miejsca" class="pc-input" type="number" min="0" name="Miejsca" value="@Model.Miejsca" />
+            </div>
+            <h5 style="color: #ff6a00; margin-top:10px;">@ViewBag.Message</h5>
+            <button class="login-button" type="submit">Dodaj</button>
+        </form>
+
+    </div>
+</div>

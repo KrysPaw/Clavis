@@ -1,0 +1,59 @@
+﻿@model Clavis.Models.User
+@using Microsoft.AspNetCore.Http;
+
+<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
+    <div class="text-center" id="login-tab">
+        @if (!ViewBag.Error)
+        {
+            <h1 style="color: #e5e5e5; margin-bottom:50px; margin-top:50px;">Informacje o użytkowniku [ @Model.UsersId ]</h1>
+            <h2 style="color: #e5e5e5; margin-bottom:20px; margin-top:50px;">@Model.Imie @Model.Nazwisko</h2>
+            <h3 style="color: #e5e5e5; margin-bottom:10px; margin-top:20px;">Login : @Model.Login </h3>
+            <h3 style="color: #e5e5e5; margin-bottom:10px; margin-top:20px;">Email : @Model.Email</h3>
+
+            string upr = "Użytkownik";
+            if (Model.Uprawnienia == "manager")
+            {
+                upr = "Klucznik";
+            }
+
+            <h3 style="color: #e5e5e5; margin-bottom:10px; margin-top:20px;">Uprawnienia : @upr</h3>
+            if (Model.Uprawnienia == "user")
+            {
+                <a style="text-decoration:none;" asp-controller="Manager" asp-action="Reservations" asp-route-filter="@Model.Nazwisko">
+                    <div class="login-button">
+                        Rezerwacje
+                    </div>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Manager" asp-action="Permissions" asp-route-user_id="@Model.UsersId">
+                    <div class="login-button">
+                        Uprawnienia
+                    </div>
+                </a>
+            }
+            if (Model.UsersId != Context.Session.GetInt32("Id"))
+            {
+                <div class="form-check">
+                    <form method="post" asp-controller="Manager" asp-action="DeleteUser" asp-route-user_id="@Model.UsersId">
+                        <h4>Usuwanie użytkownika</h4>
+                        <h5>Uwaga! Zostaną usunięte wszystkie rekordy rezerwacji dotyczące tego użytkownika.</h5>
+                        <h5>Wprowadź numer ID użytkownika jako potwierdzenie</h5>
+                        <input type="text" name="confId" />
+                        @if (ViewBag.BadId == true)
+                        {
+                            <h5 style="color:#ff6a00;">Wprowadzony numer ID nie jest poprawny</h5>
+                        }
+                        <button class="login-button" type="submit">Usuń</button>
+                    </form>
+                </div>
+            }
+        }
+        else
+        {
+            <h3 style="color: #DC143C; margin-bottom:50px; margin-top:20px;">Nie znaleziono użytkownika</h3>
+        }
+
+    </div>
+</div>
+
+
+<!--container box-shadow d-sm-flex align-items-center justify-content-center -->

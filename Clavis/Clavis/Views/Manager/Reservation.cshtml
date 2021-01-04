@@ -1,0 +1,49 @@
+﻿@model Clavis.ViewModels.RezerwacjeView;
+
+<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
+    <div class="text-center" id="login-tab">
+        @if (!ViewBag.Error)
+        {
+            <h3 style="color: #e5e5e5; margin-bottom:20px; margin-top:50px;">Rezerwacja [ @Model.ID ]</h3>
+            <h5 style="text-align: left; color: #e5e5e5; margin-bottom: 10px; margin-top: 20px;">Osoba rezerwująca : @Model.user.Imie @Model.user.Nazwisko</h5>
+            <h5 style="text-align: left; color: #e5e5e5; margin-bottom: 10px; margin-top: 20px;">Sala : @Model.room.Numer</h5>
+            <h5 style="text-align: left; color: #e5e5e5; margin-bottom: 10px; margin-top: 20px;">Data : @Model.DateFrom.ToShortDateString() </h5>
+            <h5 style="text-align: left; color: #e5e5e5; margin-bottom: 10px; margin-top: 20px;">Godziny : @Model.DateFrom.ToShortTimeString() do @Model.DateTo.ToShortTimeString()</h5>
+            <h5 style="text-align: left; color: #e5e5e5; margin-bottom: 10px; margin-top: 20px;">Status : @Model.Status</h5>
+            <form method="post" asp-controller="Manager" asp-action="Reservation" asp-route-rez_id="@Model.ID">
+                <h5>Zmiana statusu</h5>
+                <select name="status" asp-for="Status">
+                    <option value="0">Zaakceptowana</option>
+                    <option value="1">Odrzucona</option>
+                    <option value="2">Wydano klucze</option>
+                    <option value="3">Zakończona</option>
+                    <option value="4">Oczekiwanie na zwrot kluczy</option>
+                </select>
+                <button class="login-button" type="submit">Zatwierdź</button>
+            </form>
+            
+            <!--
+            <a style="text-decoration:none;" asp-controller="Manager" asp-action="DeleteUser" asp-route-user="@Model.ID">
+                <div class="login-button">
+                    Usuń użytkownika
+                </div>
+            </a>
+            -->
+            <a style="text-decoration:none;" asp-controller="Manager" asp-action="User" asp-route-user_id="@Model.user.UsersId">
+                <div class="login-button">
+                    Profil użytkownika
+                </div>
+            </a>
+            <a style="text-decoration:none;" asp-controller="Manager" asp-action="Room" asp-route-room_id="@Model.room.RoomsId">
+                <div class="login-button">
+                    Informacje o sali
+                </div>
+            </a>
+        }
+        else
+        {
+            <h3 style="color: #DC143C; margin-bottom:50px; margin-top:20px;">Nie znaleziono rezerwacji</h3>
+        }
+
+    </div>
+</div>

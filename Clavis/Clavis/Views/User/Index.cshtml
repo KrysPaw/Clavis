@@ -14,14 +14,13 @@
                     <input class="numer-filter" type="text" name="numer" value="@ViewData["searchNumer"]" />
                 </div>
                 <div class="d-block filter-options">
-                    <label>Tylko dostępne : </label>
+                    <label>Tylko dostępne: </label>
                     <input class="access-filter" type="checkbox" name="access" checked="@ViewBag.access" />
                 </div>
                 <div class="d-block filter-options">
                     <label>Ilość miejsc : </label>
                     <input class="amount-filter" type="number" name="amount" min="0" value="@ViewData["searchMiejsca"]" max="999" />
                 </div>
-
                 <div class="d-block filter-options">
                     <label>Sortowanie : </label>
                     <select class="sort" name="sortOrder">

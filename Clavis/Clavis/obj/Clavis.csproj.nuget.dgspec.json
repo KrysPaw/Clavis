@@ -88,6 +88,10 @@
               "target": "Package",
               "version": "[14.0.1016.290, )"
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
             "NUnit": {
               "target": "Package",
               "version": "[3.12.0, )"

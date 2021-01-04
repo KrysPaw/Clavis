@@ -109,7 +109,7 @@ body {
 .login-button {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 30px;
     background-color: #bfc0c0;
     border: none;
@@ -149,7 +149,7 @@ body {
     -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
-    max-height : 350px;
+    
 }
 
 .room-list-box {
@@ -437,4 +437,31 @@ body {
     -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
     box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.user-list-box {
+    background-color: #4a4e69;
+    padding: 20px;
+    margin-top: 50px;
+    border: 1px solid #fff;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+}
+
+.user-list-item {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #bfc0c0;
+    border: none;
+    color: #111;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
 }

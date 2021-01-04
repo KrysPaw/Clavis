@@ -28,6 +28,8 @@ namespace Clavis.Controllers
             int? pageNumber,
             int pageSize = 4)
         {
+            if (HttpContext.Session.GetString("Upr") != "user")
+                return RedirectToAction("Index", "Home");
 
             var result = from s in _db.Rooms select s;
 
@@ -76,27 +78,34 @@ namespace Clavis.Controllers
 
         public IActionResult PageUp(int page)
         {
+            if (HttpContext.Session.GetString("Upr") != "user")
+                return RedirectToAction("Index", "Home");
             ViewData["page"] = page + 1;
             return View("Index");
         }
 
         public IActionResult UserPage()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
-            {
-                return RedirectToAction("Login", "Home");
-            }
+            if (HttpContext.Session.GetString("Upr") != "user")
+                return RedirectToAction("Index", "Home");
             ViewBag.Imie = HttpContext.Session.GetString("Imie");
+            if (HttpContext.Session.GetString("New") == "True")
+                ViewBag.Warning = "Konto wymaga zmiany hasła!";
             ViewBag.Role = HttpContext.Session.GetString("Role");
             return View("UserPage");
         }
 
         [HttpGet]
-        public IActionResult Room(int room_id)
+        public IActionResult Room(int room_id,string date,int[] terms)
         {
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+            if (HttpContext.Session.GetString("Upr") != "user")
                 return RedirectToAction("Index", "Home");
+
+            if (date != null)
+                ViewBag.SelectedDate = Int32.Parse(date);
+            if (terms != null)
+                ViewBag.Terms = terms;
 
             Room room = _db.Rooms.Where(r => r.RoomsId == room_id).FirstOrDefault();
             if (room != null)
@@ -115,6 +124,37 @@ namespace Clavis.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Room(int room_id,string date,string time)
+        {
+            if (time != null)
+            {
+                DateTime dateTime = DateTime.Now.Date.AddDays(Int32.Parse(date)).AddHours(7).AddMinutes(90 * Int32.Parse(time));
+                Rezerwacje rez = new Rezerwacje();
+                rez.DateFrom = dateTime;
+                rez.DateTo = dateTime.AddMinutes(90);
+                rez.RoomsId = room_id;
+                rez.UsersId = HttpContext.Session.GetInt32("Id");
+                rez.Status = 0;
+                _db.Rezerwacjes.Add(rez);
+                _db.SaveChanges();
+                return RedirectToAction("Reservations", "User");
+            }
+
+            ViewBag.SelectedDate = Int32.Parse(date);
+
+            var dateFormat = DateTime.Now.Date.AddDays(Int32.Parse(date));
+            var result = from re in _db.Rezerwacjes where re.DateFrom.Date == dateFormat select re;
+
+            int[] terms = { 1, 2, 3, 4, 5, 6, 7, 8 };
+            for(int i = 0; i < 8; i++)
+            {
+                if (result.Where(r => r.DateFrom.TimeOfDay == DateTime.MinValue.AddHours(7).AddMinutes(90 * i).TimeOfDay).Count() > 0)
+                    terms[i] = -1;
+            }
+            return RedirectToAction("Room", "User", new { room_id, date, terms });
+        }
+
         [HttpGet]
         public async Task<IActionResult> Reservations(
             int? historyPageNumber,
@@ -124,10 +164,8 @@ namespace Clavis.Controllers
             )
         {
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
-            {
-                return RedirectToAction("Index","Home");
-            }
+            if (HttpContext.Session.GetString("Upr") != "user")
+                return RedirectToAction("Index", "Home");
             var result = _db.Rezerwacjes.Where(r => r.UsersId == HttpContext.Session.GetInt32("Id") && r.DateTo < DateTime.Now).OrderBy(r=>r.DateFrom).
                 Join(_db.Rooms, rez => rez.RoomsId, room => room.RoomsId, (rez, room) => new RezerwacjeView(
                         rez.RezerwacjeId, room.Numer, rez.DateFrom, rez.DateTo, rez.Status));
@@ -153,6 +191,8 @@ namespace Clavis.Controllers
         [HttpGet]
         public IActionResult Account()
         {
+            if (HttpContext.Session.GetString("Upr") != "user")
+                return RedirectToAction("Index", "Home");
             User user = new User();
             user.Imie = HttpContext.Session.GetString("Imie");
             user.Nazwisko = HttpContext.Session.GetString("Nazwisko");
@@ -164,6 +204,52 @@ namespace Clavis.Controllers
         [HttpGet]
         public IActionResult changePassword()
         {
+            if (HttpContext.Session.GetString("Upr") != "user")
+                return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult changePassword(string oldPass,string newPass,string newPassRe)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            User loggedInUser = _db.Users.Where(u => u.UsersId == HttpContext.Session.GetInt32("Id")).FirstOrDefault();
+            if (loggedInUser != null && BCrypt.Net.BCrypt.Verify(oldPass, loggedInUser.Password))
+            {
+                if (newPass == null)
+                    newPass = "";
+                if (newPassRe == null)
+                    newPassRe = "";
+                if(newPass == newPassRe)
+                {
+                    if (newPass.Length >= 8)
+                    {
+                        loggedInUser.Password = BCrypt.Net.BCrypt.HashPassword(newPass);
+                        loggedInUser.New = false;
+                        HttpContext.Session.SetString("New", "false");
+                        _db.Update(loggedInUser);
+                        _db.SaveChanges();
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Nowe hasło jest za krótkie";
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Hasła nie są takie same";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Wprowadzono niepoprawne hasło";
+                return View();
+            }
             return View();
         }
     }

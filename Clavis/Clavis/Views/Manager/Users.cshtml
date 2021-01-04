@@ -1,0 +1,82 @@
+﻿<div class="row">
+    <div class="col-lg-4 filter-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Opcje</h2>
+            <form asp-action="Users" method="get">
+                <div class="d-block filter-options">
+                    <label class="d-inline-block" >Filtr : </label>
+                    <input class="numer-filter" type="text" name="filter" value="@ViewData["Filter"]" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Tylko użytkownicy : </label>
+                    <input class="access-filter" type="checkbox" name="onlyUsers" checked="@ViewData["OnlyUsers"]" />
+                </div>
+                <div class="d-block filter-options">
+                    <label>Sortowanie : </label>
+                    <select class="sort" name="sortOrder">
+                        <option value="none" id="none">--</option>
+                        <option value="identyfikator" id="numUp">Identyfikator: rosnąco</option>
+                        <option value="identyfikatorDesc" id="numDown">Identyfikator: malejąco</option>
+                        <option value="nazwisko" id="mieUp">Nazwisko: rosnąco</option>
+                        <option value="nazwiskoDesc" id="mieDown">Nazwisko: malejąco</option>
+                    </select>
+                </div>
+                <center>
+                    <div class="d-block filter-options">
+                        <button asp-action="Users" class="submit-button" type="submit">Szukaj</button>
+                    </div>
+                </center>
+            </form>
+            <a style="text-decoration:none;" asp-controller="Manager" asp-action="UserAdd">
+                <div class="login-button">
+                    Dodaj użytkownika
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 user-list-box m-3">
+        <div class="box-title">
+            <h2 class="text-center">Lista użytkowników</h2>
+
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+
+            <div class="row text-center">
+                <div class="col-4">
+                    <a asp-action="Index" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-amount="@ViewData["searchMiejsca"]" asp-route-numer="@ViewData["searchNumer"]" asp-route-pageNumber="@(Model.PageIndex-1)" type="submit" class="btn btn-default page-button @prevDisabled">Poprzednia</a>
+                </div>
+                <div class="col-4 page-info">
+                    @if (ViewBag.totalPages != 0)
+                    {
+                        <h5>Strona @ViewBag.pageIndex / @ViewBag.totalPages</h5>
+                    }
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["SortParam"]" asp-route-amount="@ViewData["searchMiejsca"]" asp-route-numer="@ViewData["searchNumer"]" asp-route-pageNumber="@(Model.PageIndex+1)" type="submit" class="btn btn-default page-button @nextDisabled">Następna</a>
+                </div>
+            </div>
+
+            <div class="container user-list">
+                @{
+                    foreach (var item in Model)
+                    {
+                        <a style="text-decoration: none;" asp-controller="Manager" asp-action="User" asp-route-user_id="@item.UsersId">
+                            <div class="col-12 user-list-item">
+                                <h5 style="text-align:left;">[ @item.UsersId ] @item.Imie @item.Nazwisko</h5>
+                            </div>
+                        </a>
+                    }
+                }
+            </div>
+            @if (ViewBag.totalPages == 0)
+            {
+                <div class="col-12 text-center">
+                    <h3>Nie znaleziono użytkowników</h3>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
