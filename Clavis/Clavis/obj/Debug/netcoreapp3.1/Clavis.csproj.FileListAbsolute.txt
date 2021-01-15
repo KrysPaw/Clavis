@@ -551,3 +551,5 @@ C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\zh-Han
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Manager\Account.cshtml.g.cs
 C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Manager\Permissions.cshtml.g.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Manager\PermissionAdd.cshtml.g.cs
+C:\Users\wk98\source\repos\ClavisN2\Clavis\Clavis\obj\Debug\netcoreapp3.1\Razor\Views\Manager\changePassword.cshtml.g.cs

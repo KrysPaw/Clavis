@@ -15,6 +15,7 @@
     <WebStackScaffolding_IsPartialViewSelected>False</WebStackScaffolding_IsPartialViewSelected>
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_DbContextTypeFullName>Clavis.Models.ClavisDbContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>Default Settings</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

@@ -494,23 +494,141 @@ namespace Clavis.Controllers
         [HttpGet]
         public async Task<IActionResult> Permissions( 
             int user_id,
+            bool badId,
             int? pageNumber,
             int pageSize = 6
             )
         {
-            var user = _db.Users.Where(us => us.UsersId == user_id).FirstOrDefault();
-            var result = from up in _db.Uprawnienia
-                         join ro in _db.Rooms on up.RoomsId equals ro.RoomsId
-                         where up.UsersId == user_id
-                         select new UprawnieniaView(up.UprawnieniaId, user, ro);
+            if (HttpContext.Session.GetString("Upr") != "manager")
+                return RedirectToAction("Index", "Home");
 
-            var list = await PaginatedList<UprawnieniaView>.CreateAsync(result.AsNoTracking(), pageNumber ?? 1, pageSize);
-            ViewBag.totalPages = list.TotalPages;
-            ViewBag.pageIndex = list.PageIndex;
-            ViewBag.Imie = user.Imie;
-            ViewBag.Nazwisko = user.Nazwisko;
-            ViewBag.Id = user.UsersId;
-            return View(list);
+            if (badId == true)
+                ViewBag.BadId = true;
+            var user = _db.Users.Where(us => us.UsersId == user_id && us.Uprawnienia == "user").FirstOrDefault();
+            if (user != null)
+            {
+                var result = from up in _db.Uprawnienia
+                             join ro in _db.Rooms on up.RoomsId equals ro.RoomsId
+                             where up.UsersId == user_id
+                             select new UprawnieniaView(up.UprawnieniaId, user, ro);
+
+                var list = await PaginatedList<UprawnieniaView>.CreateAsync(result.AsNoTracking(), pageNumber ?? 1, pageSize);
+                ViewBag.User = user;
+                ViewBag.totalPages = list.TotalPages;
+                ViewBag.pageIndex = list.PageIndex;
+                return View(list);
+            }
+            return RedirectToAction("MainPage", "Manager");
+        }
+
+        [HttpGet]
+        public IActionResult PermissionAdd(int user_id)
+        {
+
+            if (HttpContext.Session.GetString("Upr") != "manager")
+                return RedirectToAction("Index", "Home");
+            var user = _db.Users.Where(us => us.UsersId == user_id && us.Uprawnienia=="user").FirstOrDefault();
+
+            if (user != null)
+            {
+                /*
+                var result = _db.Rooms.ToList();
+
+                foreach(var item in _db.Rooms.ToList())
+                {
+                    if (_db.Uprawnienia.Where(up => up.RoomsId == item.RoomsId && up.UsersId == user_id).Count() > 0)
+                        result.Remove(item);
+                }
+                */
+
+                var result = from room in _db.Rooms where !_db.Uprawnienia.Any(up => up.UsersId == user_id && up.RoomsId == room.RoomsId) select room;
+
+                ViewBag.User = user;
+                if (result != null)
+                {
+                    return View(result);
+                }
+            }            
+            return RedirectToAction("Permissions","Manager",new { user_id = user_id });
+        }
+
+        [HttpPost]
+        public IActionResult PermissionAdd(int user_id,int room_id)
+        {
+            Uprawnienium upr = new Uprawnienium();
+            upr.UsersId = user_id;
+            upr.RoomsId = room_id;
+            _db.Uprawnienia.Add(upr);
+            _db.SaveChanges();
+            return RedirectToAction("Permissions", "Manager", new { user_id = user_id });
+        }
+
+        [HttpPost]
+        public IActionResult PermissionDelete(int user_id,int permission_id)
+        {
+            var perm = _db.Uprawnienia.Where(u => u.UprawnieniaId == permission_id).FirstOrDefault();
+            if (perm != null)
+            {
+                _db.Uprawnienia.Remove(perm);
+                _db.SaveChanges();
+            }                    
+            else
+            {
+                return RedirectToAction("Permissions", "Manager", new { user_id = user_id , badId = true});
+            }
+            return RedirectToAction("Permissions", "Manager",new { user_id = user_id });
+        }
+
+        [HttpGet]
+        public IActionResult changePassword()
+        {
+            if (HttpContext.Session.GetString("Upr") != "manager")
+                return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult changePassword(string oldPass, string newPass, string newPassRe)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            User loggedInUser = _db.Users.Where(u => u.UsersId == HttpContext.Session.GetInt32("Id")).FirstOrDefault();
+            if (loggedInUser != null && BCrypt.Net.BCrypt.Verify(oldPass, loggedInUser.Password))
+            {
+                if (newPass == null)
+                    newPass = "";
+                if (newPassRe == null)
+                    newPassRe = "";
+                if (newPass == newPassRe)
+                {
+                    if (newPass.Length >= 8)
+                    {
+                        loggedInUser.Password = BCrypt.Net.BCrypt.HashPassword(newPass);
+                        loggedInUser.New = false;
+                        HttpContext.Session.SetString("New", "false");
+                        _db.Update(loggedInUser);
+                        _db.SaveChanges();
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Nowe hasło jest za krótkie";
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Hasła nie są takie same";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Wprowadzono niepoprawne hasło";
+                return View();
+            }
+            return View();
         }
     }
 }

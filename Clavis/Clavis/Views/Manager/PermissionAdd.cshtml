@@ -1,0 +1,20 @@
+﻿
+
+<div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
+    <div class="text-center">
+        <h3 style="color: #e5e5e5; margin-bottom:30px; margin-top:50px;">Dodawanie uprawnienia dla użytkownika @ViewBag.User.Imie @ViewBag.User.Nazwisko [ @ViewBag.User.UsersId ]</h3>
+        <form asp-action="PermissionAdd" asp-route-user_id="@ViewBag.User.UsersId" method="post">
+            <div class="d-block">
+                <label>Wybierz sale : </label>
+                <select method="post" name="room_id">
+                    @foreach(var item in Model)
+                    {
+                        <option value="@item.RoomsId">[ @item.RoomsId ] @item.Numer</option>
+                    }
+                </select>
+            </div>
+            <button class="login-button" type="submit">Dodaj</button>
+        </form>
+
+    </div>
+</div>

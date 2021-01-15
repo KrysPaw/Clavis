@@ -1,12 +1,14 @@
 ﻿<div class="container">
     <div class="acc-box ">
-        <div class="acc-info">
+        <div class="acc-info" style="margin-bottom:50px;">
             <h5>Imię : @Model.Imie</h5>
             <h5>Nazwisko : @Model.Nazwisko</h5>
             <h5>Email : @Model.Email</h5>
         </div>
-        <div class="acc-functions">
-            <a asp-controller="User" asp-action="changePassword" >Zmień hasło</a>
-        </div>
+        <a style="text-decoration:none;" asp-controller="Manager" asp-action="changePassword" asp-route-user_id="@Model.UsersId">
+            <div class="login-button">
+                Zmień hasło
+            </div>
+        </a>
     </div>
 </div>

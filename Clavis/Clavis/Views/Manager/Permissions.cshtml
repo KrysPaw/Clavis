@@ -6,16 +6,16 @@
 
 <div style="background-color: #4a4e69; margin-top: 100px; margin-left: auto; margin-right:auto; min-height:50%" class="container login-box">
     <div class="box-title text-center">
-        <h3 style="color: #e5e5e5; margin-bottom:10px; margin-top:20px;">Sale dostępne dla użytkownika @ViewBag.Imie @ViewBag.Nazwisko [ @ViewBag.Id ]</h3>
+        <h3 style="color: #e5e5e5; margin-bottom:10px; margin-top:20px;">Sale dostępne dla użytkownika @ViewBag.User.Imie @ViewBag.User.Nazwisko [ @ViewBag.User.UsersId ]</h3>
 
         @{
             var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
             var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
 
-        <a style="text-decoration:none;" asp-controller="Manager" asp-action="PermissionAdd" asp-route-user_id="@ViewBag.Id">
+        <a style="text-decoration:none;" asp-controller="Manager" asp-action="PermissionAdd" asp-route-user_id="@ViewBag.User.UsersId">
             <div class="login-button">
-                Rezerwacje
+                Dodaj uprawnienie
             </div>
         </a>
 
@@ -40,7 +40,7 @@
                 {
                     <a style="text-decoration: none;" asp-controller="Manager" asp-action="Room" asp-route-room_id="@item.room.RoomsId">
                         <div class="col-12 res-item">
-                            <h3>@item.room.Numer </h3>
+                            <h3>[ @item.ID ] @item.room.Numer</h3>
                             <h4>@item.room.Opis </h4>
                         </div>
                     </a>
@@ -53,6 +53,18 @@
                 <h3>Nie znaleziono uprawnienia</h3>
             </div>
         }
+        <div class="form-check">
+            <form method="post" asp-controller="Manager" asp-action="PermissionDelete" asp-route-user_id="@ViewBag.User.UsersId">
+                <h4>Usuwanie uprawnienia</h4>
+                <h5>Wprowadź numer ID uprawnienia jako potwierdzenie</h5>
+                <input type="text" name="permission_id" />
+                @if (ViewBag.BadId == true)
+                {
+                    <h5 style="color:#ff6a00;">Wprowadzony numer ID nie jest poprawny</h5>
+                }
+                <button class="login-button" type="submit">Usuń</button>
+            </form>
+        </div>
 
     </div>
 </div>

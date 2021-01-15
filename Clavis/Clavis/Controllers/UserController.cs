@@ -130,15 +130,19 @@ namespace Clavis.Controllers
             if (time != null)
             {
                 DateTime dateTime = DateTime.Now.Date.AddDays(Int32.Parse(date)).AddHours(7).AddMinutes(90 * Int32.Parse(time));
-                Rezerwacje rez = new Rezerwacje();
-                rez.DateFrom = dateTime;
-                rez.DateTo = dateTime.AddMinutes(90);
-                rez.RoomsId = room_id;
-                rez.UsersId = HttpContext.Session.GetInt32("Id");
-                rez.Status = 0;
-                _db.Rezerwacjes.Add(rez);
-                _db.SaveChanges();
-                return RedirectToAction("Reservations", "User");
+                var res = _db.Rezerwacjes.Where(re => re.DateFrom == dateTime).FirstOrDefault();
+                if(res == null)
+                {
+                    Rezerwacje rez = new Rezerwacje();
+                    rez.DateFrom = dateTime;
+                    rez.DateTo = dateTime.AddMinutes(90);
+                    rez.RoomsId = room_id;
+                    rez.UsersId = HttpContext.Session.GetInt32("Id");
+                    rez.Status = 0;
+                    _db.Rezerwacjes.Add(rez);
+                    _db.SaveChanges();
+                    return RedirectToAction("Reservations", "User");
+                }               
             }
 
             ViewBag.SelectedDate = Int32.Parse(date);

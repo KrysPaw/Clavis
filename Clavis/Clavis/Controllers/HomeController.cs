@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace Clavis.Controllers
 {
@@ -15,6 +16,15 @@ namespace Clavis.Controllers
         public HomeController(ClavisDbContext db)
         {
             _db = db;
+            /*
+            var startTimeSpan = TimeSpan.Zero;
+            var periodTimeSpan = TimeSpan.FromMinutes(1);
+            Guard guard = new Guard(_db);
+            var timer = new Timer((e) =>
+            {
+                guard.checkStatuses();
+            }, null, startTimeSpan, periodTimeSpan);
+            */
         }
 
         public IActionResult Index()
@@ -51,7 +61,7 @@ namespace Clavis.Controllers
         public IActionResult Login(User user)
         {
             User loggedInUser = _db.Users.SingleOrDefault(x => x.Login == user.Login);
-            if (loggedInUser == null)
+            if (loggedInUser == null || user.Password == null || user.Login == null)
             {
                 ViewBag.Message = "Nieprawidłowy login lub hasło.";
                 return View();

@@ -29,19 +29,6 @@ namespace Clavis
 
             services.AddMvc();
 
-
-            /*
-            {
-                config.UseInMemoryDatabase("data");
-            });
-            */
-            // AddIdentity registers the services
-
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
-
-
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Identity.Cookie";
